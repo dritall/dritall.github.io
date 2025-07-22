@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FantaBarSport - Regolamento Interattivo 2025/2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Neon Noir (Cyan/Red on Dark) based on Logo -->
+    <!-- Application Structure Plan: A tabbed single-page application (Panoramica, Novità, Regole Base, Mercato, Punteggi, Competizioni, Casi Speciali, Strumenti AI) was chosen to break down the dense rulebook into logical, user-selectable sections. The "Novità" section acts as a high-level summary of changes, improving onboarding for returning users. -->
+    <!-- Visualization & Content Choices: Key stats are presented as cards for quick scanning. Complex market rules are broken into interactive accordion cards. Scoring rules are visualized with a bar chart (Chart.js/Canvas). The new AI section uses simple forms to gather user input and displays generated text in styled containers. A loading spinner provides feedback during API calls. NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #d1d5db;
+            background-image: linear-gradient(rgba(17, 24, 39, 0.97), rgba(17, 24, 39, 0.97)), url('https://images.unsplash.com/photo-1593341646782-164335505235?q=80&w=2070&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .header-bg {
+            background-image: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 1)), url('https://images.unsplash.com/photo-1599469803986-a68153278933?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+            color: #9ca3af;
+            background-color: rgba(31, 41, 55, 0.5);
+            border: 1px solid #374151;
+        }
+        .nav-button.active {
+            background-color: #0891b2;
+            color: #ffffff;
+            font-weight: 600;
+            border-color: #0891b2;
+            box-shadow: 0 0 15px rgba(8, 145, 178, 0.5);
+        }
+        .nav-button:not(.active):hover {
+            background-color: #1f2937;
+            color: #f9fafb;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stat-card {
+            background-color: rgba(31, 41, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #374151;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(8, 145, 178, 0.3);
+            border-color: rgba(8, 145, 178, 0.5);
+        }
+        .rule-card {
+            background-color: rgba(31, 41, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #0891b2;
+        }
+        .accordion-item {
+             background-color: rgba(31, 41, 55, 0.8);
+             backdrop-filter: blur(10px);
+             border: 1px solid #374151;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .loader {
+            border: 4px solid #374151;
+            border-top: 4px solid #0891b2;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .gemini-card {
+             background-color: rgba(31, 41, 55, 0.8);
+             backdrop-filter: blur(10px);
+             border-radius: 0.75rem;
+             padding: 1.5rem;
+             border: 1px solid #374151;
+             border-top: 4px solid #0891b2;
+        }
+        .gemini-result {
+            background-color: #111827;
+            border-left: 3px solid #0891b2;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+            color: #d1d5db;
+        }
+        .section-header {
+            padding: 4rem 1rem;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(17, 24, 39, 0.7);
+            z-index: 1;
+        }
+        .section-header > * {
+            position: relative;
+            z-index: 2;
+        }
+        .neon-title {
+            font-family: 'Pacifico', cursive;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #0891b2, 0 0 30px #0891b2, 0 0 40px #0891b2, 0 0 55px #0891b2, 0 0 75px #0891b2;
+        }
+        .neon-title-red {
+            font-family: 'Oswald', sans-serif;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ef4444, 0 0 30px #ef4444, 0 0 40px #ef4444, 0 0 55px #ef4444, 0 0 75px #ef4444;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="w-full">
+        
+        <header class="header-bg text-white text-center py-20 px-4">
+            <h1 class="text-5xl md:text-7xl">
+                <span class="neon-title text-cyan-300">Fanta Bar</span>
+                <span class="neon-title-red text-red-500 uppercase tracking-widest ml-2">Sport 3.0</span>
+            </h1>
+            <p class="text-xl text-stone-300 mt-4">Regolamento Ufficiale Interattivo 2025/2026</p>
+        </header>
+
+        <nav class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm py-4 shadow-lg">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <button data-target="panoramica" class="nav-button active px-4 py-2 rounded-full text-sm md:text-base">Panoramica</button>
+                    <button data-target="novita" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Novità 25/26</button>
+                    <button data-target="regole-base" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Regole Base</button>
+                    <button data-target="mercato" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Mercato</button>
+                    <button data-target="punteggi" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Punteggi</button>
+                    <button data-target="competizioni" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Competizioni</button>
+                    <button data-target="casi-speciali" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Casi Speciali</button>
+                    <button data-target="strumenti-ai" class="nav-button px-4 py-2 rounded-full text-sm md:text-base">Strumenti AI ✨</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container mx-auto p-4 md:p-8">
+            <section id="panoramica" class="content-section active">
+                 <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-cyan-400 mb-2">Panoramica della Lega</h2>
+                    <p class="max-w-3xl mx-auto text-stone-400">Benvenuto nel centro di comando del FantaBarSport. Questa sezione ti offre una visione d'insieme delle regole e dei numeri chiave della nostra lega. Usa le schede in alto per esplorare ogni dettaglio del regolamento.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="stat-card">
+                        <h3 class="font-bold text-xl text-cyan-400">Quota Iscrizione</h3>
+                        <p class="text-4xl font-bold text-white mt-2">100 €</p>
+                        <p class="text-sm text-stone-400 mt-2">Da saldare entro la 3ª giornata.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="font-bold text-xl text-cyan-400">Crediti Iniziali</h3>
+                        <p class="text-4xl font-bold text-white mt-2">600</p>
+                        <p class="text-sm text-stone-400 mt-2">Milioni per costruire la tua rosa.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="font-bold text-xl text-cyan-400">Cambi Mercato</h3>
+                        <p class="text-4xl font-bold text-white mt-2">15 + 15</p>
+                        <p class="text-sm text-stone-400 mt-2">Per girone di andata e ritorno.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="font-bold text-xl text-cyan-400">Composizione Rosa</h3>
+                        <p class="text-2xl font-bold text-white mt-2">3-8-8-5</p>
+                        <p class="text-sm text-stone-400 mt-2">Portieri - Difensori - Centrocampisti - Attaccanti.</p>
+                    </div>
+                     <div class="stat-card">
+                        <h3 class="font-bold text-xl text-cyan-400">Novità: Il Colpo Proibito</h3>
+                        <p class="text-lg font-medium text-white mt-2">Acquista un giocatore anche se bloccato... ma attento, tutto ha un costo!</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="font-bold text-xl text-cyan-400">Scadenza Formazione</h3>
+                        <p class="text-2xl font-bold text-white mt-2">15 min</p>
+                        <p class="text-sm text-stone-400 mt-2">Prima dell'inizio del primo anticipo di giornata.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="novita" class="content-section">
+                <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1553775282-20af80779774?q=80&w=1974&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Riepilogo Novità 2025/2026</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">Per i veterani della lega, ecco un riassunto delle principali modifiche e chiarimenti introdotti in questa stagione. I dettagli completi sono disponibili nelle rispettive sezioni.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="p-6 rounded-lg rule-card">
+                        <h3 class="text-xl font-semibold text-cyan-400">Introdotto: Il Colpo Proibito</h3>
+                        <p class="mt-2 text-stone-300">È stata aggiunta una nuova mossa strategica che permette di acquistare un giocatore "bloccato". Ogni squadra ha a disposizione 2 "Colpi Proibiti" a stagione (uno per girone), utilizzabili solo tra la 12ª e la 25ª giornata e con una penalità in punti e gol.</p>
+                    </div>
+                    <div class="p-6 rounded-lg rule-card">
+                        <h3 class="text-xl font-semibold text-cyan-400">Chiarimenti sulle Dinamiche di Mercato</h3>
+                        <p class="mt-2 text-stone-300">Vengono formalizzate due regole chiave per il mercato settimanale:
+                            <ul class="list-disc list-inside mt-2 pl-4">
+                                <li>Tutti i giocatori nuovi inseriti in lista o quelli non bloccati all'inizio della finestra di mercato sono acquistabili da chiunque.</li>
+                                <li>Viene introdotta una regola anti-speculazione: se un giocatore "bloccato" viene venduto, non potrà essere acquistato da nessuno nella finestra di mercato in corso, ma solo a partire da quella successiva.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="regole-base" class="content-section">
+                <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1517424359326-c2a67646a782?q=80&w=2070&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Regole di Base</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">Qui trovi tutte le informazioni fondamentali per iniziare: dall'iscrizione alla creazione della rosa, fino alla gestione settimanale della tua formazione. Sono le fondamenta su cui si basa tutta la nostra competizione.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="p-6 rounded-lg rule-card">
+                        <h3 class="text-xl font-semibold text-cyan-400">1. Iscrizione</h3>
+                        <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
+                            <li><strong>Quota:</strong> 100 €.</li>
+                            <li><strong>Scadenza Saldo:</strong> La quota deve essere versata obbligatoriamente <strong>entro la terza giornata</strong> di campionato, pena l'esclusione.</li>
+                            <li><strong>Iscrizioni Tardive:</strong> È possibile iscrivere una squadra fino all'inizio della terza giornata. Alle squadre iscritte dopo la prima giornata verranno assegnati <strong>66 punti d'ufficio</strong> per ogni giornata saltata.</li>
+                        </ul>
+                    </div>
+                     <div class="p-6 rounded-lg rule-card">
+                        <h3 class="text-xl font-semibold text-cyan-400">2. App e Fonti Dati</h3>
+                        <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
+                            <li><strong>App di Gestione:</strong> "Fantaclub".</li>
+                            <li><strong>Fonte Quotazioni:</strong> Milano.</li>
+                            <li><strong>Fonte Assist:</strong> Fantaclub (valutazione su volontarietà, dribbling e palla deviata).</li>
+                            <li><strong>Fonte Voti - Fantaclub Classic:</strong>
+                                <ul class="list-disc list-inside ml-4 mt-1">
+                                    <li><strong>Definizione:</strong> Fantaclub Classic è il voto di sintesi delle migliori testate giornalistiche (media tra le fonti Milano e Roma), pensato per chi desidera un voto equilibrato e di massima qualità.</li>
+                                    <li><strong>Voti Live e Definitivi:</strong> Durante le partite saranno visibili i Voti Live (fonte Fantaclub Live). Questi verranno poi sostituiti la mattina successiva con i voti definitivi di Fantaclub Classic.</li>
+                                    <li><strong>Regola SV (Senza Voto):</strong> L'attribuzione del voto o del SV segue la presenza o meno del voto nella redazione Milano. Un giocatore riceve il voto solo se ha giocato per almeno <strong>15 minuti</strong>.</li>
+                                    <li><strong>Arrotondamento:</strong> La media voto viene arrotondata per difetto se superiore a 6 (es. 6.75 diventa 6.5) e per eccesso se inferiore a 6 (es. 5.75 diventa 6).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg rule-card">
+                        <h3 class="text-xl font-semibold text-cyan-400">3. Creazione della Rosa Iniziale</h3>
+                         <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
+                            <li><strong>Periodo Inserimento:</strong> Da Sabato 16 Agosto 2025 fino a <strong>Sabato 23 Agosto 2025 alle ore 18.15</strong>.</li>
+                             <li><strong>Scadenza:</strong> La consegna della prima rosa deve avvenire <strong>15 minuti prima</strong> dell'inizio della prima partita di campionato (23 Agosto ore 18.30).</li>
+                            <li><strong>Crediti Iniziali:</strong> 600 milioni.</li>
+                            <li><strong>Composizione:</strong> 3 portieri - 8 difensori - 8 centrocampisti - 5 attaccanti.</li>
+                            <li><strong>ATTENZIONE:</strong> La rosa iniziale può essere confermata <strong>una sola volta</strong>. Ogni movimento successivo verrà conteggiato come cambio stagionale.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg rule-card">
+                        <h3 class="text-xl font-semibold text-cyan-400">4. Gestione Formazione Settimanale</h3>
+                         <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
+                            <li><strong>Moduli Consentiti:</strong> 343, 352, 361, 433, 442, 451, 532, 541.</li>
+                            <li><strong>Panchina e Sostituzioni:</strong> 11 riserve (panchina lunga) e 5 sostituzioni disponibili. L'ordine di inserimento in panchina determina la priorità di sostituzione.</li>
+                             <li><strong>Cambio Modulo:</strong> Non consentito.</li>
+                            <li><strong>Inserimento Formazione:</strong> Deve avvenire su Fantaclub fino a <strong>15 minuti prima</strong> dell'inizio del primo anticipo di giornata. In caso di mancato inserimento, verrà utilizzata la formazione del turno precedente.</li>
+                             <li><strong>Inserimento Manuale:</strong> È concesso n.1 inserimento manuale da parte dell'admin per problemi tecnici, solo se la formazione viene comunicata prima dell'inizio della giornata.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mercato" class="content-section">
+                <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1606913748237-a2283b2f99ac?q=80&w=1974&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Il Mercato</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">Il cuore pulsante del fantacalcio. Qui trovi le regole su come e quando puoi modificare la tua rosa, dalla gestione dei cambi settimanali alla nuova mossa strategica: "Il Colpo Proibito".</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Regole del Mercato Settimanale</h3>
+                     <div class="grid md:grid-cols-2 gap-6 text-stone-300">
+                        <div>
+                            <h4 class="font-bold text-lg">Cambi a Disposizione</h4>
+                            <p>Hai <strong>15 cambi</strong> per il girone di andata e <strong>15 cambi</strong> per il girone di ritorno. Quelli non usati nel girone d'andata andranno persi.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Giocatori Bloccati</h4>
+                            <p>Un giocatore presente in <strong>(N° iscritti / 6)</strong> squadre è "bloccato" e non può essere acquistato normally.</p>
+                        </div>
+                         <div class="col-span-full">
+                            <h4 class="font-bold text-lg">Sostituzione Gratuita</h4>
+                            <p>È sempre possibile sostituire gratuitamente i calciatori non più presenti in lista (identificati dall'asterisco *).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-center text-cyan-400 mb-4">Come Funziona il Mercato (a prova di bambino)</h3>
+                    <div class="space-y-4">
+                        <div class="accordion-item rounded-lg">
+                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-cyan-400 flex justify-between items-center">
+                                CASO 1: Comprare un giocatore LIBERO
+                                <span class="transform transition-transform duration-300">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 border-t border-gray-700">
+                                    <p class="font-semibold text-white">In parole povere:</p>
+                                    <p class="text-stone-300 mb-2">Se un giocatore è "libero" (cioè non ce l'hanno già troppe squadre), chiunque può prenderlo. Semplice, no?</p>
+                                    <p class="font-semibold text-white">Esempio Pratico:</p>
+                                    <p class="text-stone-300">Il giocatore "El Fuego" Ramirez è libero. La squadra "Deportivo La Corazza" ha i soldi e un cambio disponibile, quindi può comprarlo senza problemi.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="accordion-item rounded-lg">
+                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-cyan-400 flex justify-between items-center">
+                                CASO 2: Comprare un giocatore NUOVO
+                                <span class="transform transition-transform duration-300">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 border-t border-gray-700">
+                                    <p class="font-semibold text-white">In parole povere:</p>
+                                    <p class="text-stone-300 mb-2">Un giocatore appena arrivato in Serie A è come un giocatore libero. Chi primo arriva, meglio alloggia!</p>
+                                    <p class="font-semibold text-white">Esempio Pratico:</p>
+                                    <p class="text-stone-300">Il giovedì la Serie A accoglie un nuovo fenomeno, "El Muro" Vargas. Appena appare sul listone, è subito acquistabile da chiunque sia abbastanza veloce da prenderlo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item rounded-lg">
+                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-cyan-400 flex justify-between items-center">
+                                CASO 3: Un giocatore "BLOCCATO" viene venduto
+                                <span class="transform transition-transform duration-300">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 border-t border-gray-700">
+                                    <p class="font-semibold text-white">In parole povere (Regola "Anti-Accordi"):</p>
+                                    <p class="text-stone-300 mb-2">Immagina che il giocatore più forte sia "bloccato". Se una squadra lo vende, per evitare accordi strani, quel giocatore va "in quarantena" per una settimana. <strong>Nessuno può prenderlo subito.</strong></p>
+                                    <p class="font-semibold text-white">Esempio Pratico:</p>
+                                    <p class="text-stone-300">L'attaccante "El Tanque" Silva è bloccato. Il mercoledì, la squadra "Spartak Rótula" lo vende. Anche se ora è svincolato, "El Tanque" non può essere comprato da nessuno per tutta la settimana. Solo dalla settimana dopo, tornerà libero per tutti.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gray-800 border-2 border-dashed border-red-500 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold text-center text-red-500 mb-2">✨ Il Colpo Proibito ✨</h3>
+                    <p class="text-center text-red-300 mb-4">Questa mossa speciale permette di aggirare la regola dei giocatori bloccati.</p>
+                    <ul class="list-disc list-inside space-y-2 text-stone-300">
+                        <li><strong>Cos'è:</strong> Permette di acquistare un giocatore che sarebbe "bloccato" perché già presente nel numero massimo di rose consentito.</li>
+                        <li><strong>Quantità:</strong> <strong>2 "Colpi Proibiti"</strong> in totale per la stagione (1 per il girone d'andata, 1 per il ritorno). Non sono cumulabili.</li>
+                        <li><strong>Periodo di Utilizzo:</strong> Esclusivamente tra la <strong>12ª e la 25ª giornata</strong> di campionato.</li>
+                        <li><strong>Condizioni:</strong> Per usare il Colpo Proibito è necessario avere i crediti sufficienti e un cambio stagionale disponibile, che verrà consumato.</li>
+                        <li><strong>Scadenza:</strong> La richiesta va effettuata fino a 24 ore prima dell'inizio della giornata di campionato successiva.</li>
+                        <li><strong>Penalità:</strong> L'uso del Colpo Proibito comporta un malus immediato di <strong>-20 Punti</strong> nella Classifica Generale e <strong>-1 Gol</strong> nella partita di coppa, se questa si disputa nel turno di campionato immediatamente successivo.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="punteggi" class="content-section">
+                <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1935&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Bonus, Malus e Modificatori</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">Ogni azione conta. In questa sezione puoi visualizzare l'impatto di bonus e malus sul punteggio finale e capire il funzionamento del modificatore di difesa, una regola chiave per le strategie più raffinate.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Tabella Bonus/Malus</h3>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between items-center text-green-400"><span>Gol Difensore/Portiere</span> <span class="font-bold text-lg">+4</span></li>
+                            <li class="flex justify-between items-center text-green-400"><span>Gol Centrocampista</span> <span class="font-bold text-lg">+3.5</span></li>
+                            <li class="flex justify-between items-center text-green-400"><span>Gol Attaccante</span> <span class="font-bold text-lg">+3</span></li>
+                            <li class="flex justify-between items-center text-green-400"><span>Rigore Parato</span> <span class="font-bold text-lg">+3</span></li>
+                            <li class="flex justify-between items-center text-green-400"><span>Assist</span> <span class="font-bold text-lg">+1</span></li>
+                            <li class="flex justify-between items-center text-red-400"><span>Ammonizione</span> <span class="font-bold text-lg">-0.5</span></li>
+                            <li class="flex justify-between items-center text-red-400"><span>Espulsione</span> <span class="font-bold text-lg">-1</span></li>
+                            <li class="flex justify-between items-center text-red-400"><span>Gol Subito (Portiere)</span> <span class="font-bold text-lg">-1</span></li>
+                            <li class="flex justify-between items-center text-red-400"><span>Autogol</span> <span class="font-bold text-lg">-2</span></li>
+                            <li class="flex justify-between items-center text-red-400"><span>Rigore Sbagliato</span> <span class="font-bold text-lg">-3</span></li>
+                        </ul>
+                        <p class="text-xs text-stone-400 mt-2">Nota: la somma dei malus per cartellini non può superare -1.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                         <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Modificatore Difesa</h3>
+                         <p class="text-stone-300 mb-4"><strong>Regola Invariata:</strong> La regola del modificatore di difesa rimane identica a quella della scorsa stagione. Il bonus si applica solo schierando 4 o più difensori e si calcola sulla media voto del portiere e dei 3 migliori difensori.</p>
+                         <ul class="space-y-2">
+                            <li class="flex justify-between items-center"><span>Media Voto ≥ 7</span> <span class="font-bold text-lg text-green-400">+6 Punti</span></li>
+                            <li class="flex justify-between items-center"><span>Media Voto ≥ 6.5 e &lt; 7</span> <span class="font-bold text-lg text-green-400">+3 Punti</span></li>
+                            <li class="flex justify-between items-center"><span>Media Voto ≥ 6 e &lt; 6.5</span> <span class="font-bold text-lg text-green-400">+1 Punto</span></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="mt-8">
+                    <h3 class="text-2xl font-semibold text-center text-cyan-400 mb-4">Impatto Visivo Bonus/Malus</h3>
+                    <div class="chart-container bg-gray-800 p-4 rounded-lg shadow-lg">
+                        <canvas id="bonusMalusChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="competizioni" class="content-section">
+                 <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1560272564-c83b66b17484?q=80&w=1964&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Le Competizioni</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">La gloria non si ottiene solo con la classifica generale. Il FantaBarSport è un ecosistema di tornei e premi che rendono ogni giornata avvincente. Qui è delineata la struttura generale delle nostre competizioni.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Struttura Generale</h3>
+                    <p class="text-stone-300 mb-6">Il modello generale delle competizioni prevede:</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xl">1</div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg text-white">Classifica Generale</h4>
+                                <p class="text-stone-300">A punti, per tutte le 38 giornate.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xl">2</div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg text-white">Coppe (Super Lega & Coppa Uefa)</h4>
+                                <ul class="list-disc list-inside text-stone-300">
+                                    <li><strong>Fase Iniziale:</strong> Dopo un certo numero di giornate (es. 12), la classifica generale verrà usata per creare dei gironi all'italiana.</li>
+                                    <li><strong>Fase Finale:</strong> Al termine dei gironi, le squadre meglio classificate accederanno al tabellone a eliminazione diretta della <strong>Super Lega</strong>. Le altre squadre accederanno al tabellone della <strong>Coppa Uefa</strong>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xl">3</div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg text-white">Premi Speciali</h4>
+                                <p class="text-stone-300">Verranno confermati il Premio di Giornata e il premio per il Miglior Punteggio Assoluto della stagione.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 border-t border-gray-700 pt-6 text-center">
+                        <p class="font-semibold text-cyan-400">Tutte le informazioni sulla composizione, suddivisione e impostazione dei tornei, dei premi e dei calendari saranno comunicati tra la 3ª e la 5ª giornata di campionato.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="casi-speciali" class="content-section">
+                <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1544642824-3ce58c383357?q=80&w=1974&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Casi Speciali</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">Il calcio è imprevedibile. Questa sezione chiarisce come vengono gestite le situazioni particolari, come le partite rinviate o anticipate, per garantire equità e trasparenza a tutti i partecipanti.</p>
+                </div>
+                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Rinvii e Anticipi</h3>
+                    <p class="text-stone-300 mb-4">La gestione delle partite fuori calendario segue una regola precisa:</p>
+                    <ul class="list-disc list-inside space-y-2 text-stone-300">
+                        <li>Saranno considerati validi i voti di tutte le partite che si svolgono nel lasso di tempo che intercorre <strong>tra la fine del turno precedente e l'inizio del successivo</strong>.</li>
+                        <li>Quando una partita si gioca al di fuori di questo intervallo, a tutti i giocatori delle squadre coinvolte (inclusi panchinari, infortunati e squalificati) verrà assegnato il <strong>6 d'ufficio</strong>.</li>
+                        <li>Questo 6 d'ufficio viene considerato un voto normale a tutti gli effetti anche per il calcolo del modificatore di difesa.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="strumenti-ai" class="content-section">
+                <div class="section-header text-center mb-12 rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1551958214-2d51d1462358?q=80&w=2070&auto=format&fit=crop')">
+                    <h2 class="text-4xl font-bold text-white mb-2">Strumenti AI ✨</h2>
+                    <p class="max-w-3xl mx-auto text-stone-300">Potenzia la tua esperienza di fantacalcio! Usa l'intelligenza artificiale di Gemini per generare contenuti unici e divertenti per la tua squadra.</p>
+                </div>
+                <div class="max-w-2xl mx-auto">
+                    <div class="gemini-card">
+                        <h3 class="text-xl font-semibold text-cyan-400 mb-4">Generatore di Nomi Squadra</h3>
+                        <form id="name-generator-form">
+                            <label for="name-keyword" class="block text-sm font-medium text-stone-300">Parola chiave (opzionale)</label>
+                            <input type="text" id="name-keyword" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-stone-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm text-white" placeholder="Es: fulmine, leggenda, bar">
+                            <button type="submit" class="mt-4 w-full bg-cyan-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 flex items-center justify-center">
+                                Genera Nomi
+                            </button>
+                        </form>
+                        <div id="name-generator-loader" class="hidden">
+                            <div class="loader"></div>
+                        </div>
+                        <div id="name-generator-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const setActiveTab = (targetId) => {
+                 navButtons.forEach(btn => {
+                    if(btn.dataset.target === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    setActiveTab(button.dataset.target);
+                });
+            });
+
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('span');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                        document.querySelectorAll('.accordion-header span').forEach(i => i.style.transform = 'rotate(0deg)');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            const ctx = document.getElementById('bonusMalusChart');
+            if(ctx) {
+                Chart.defaults.color = '#9ca3af';
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Gol D/P', 'Gol C', 'Gol A', 'Rig. Parato', 'Assist', 'Amm.', 'Esp.', 'Gol Sub.', 'Autogol', 'Rig. Sbagl.'],
+                        datasets: [{
+                            label: 'Punti',
+                            data: [4, 3.5, 3, 3, 1, -0.5, -1, -1, -2, -3],
+                            backgroundColor: [
+                                'rgba(34, 211, 238, 0.6)', 'rgba(34, 211, 238, 0.6)', 'rgba(34, 211, 238, 0.6)', 'rgba(34, 211, 238, 0.6)', 'rgba(34, 211, 238, 0.6)',
+                                'rgba(248, 113, 113, 0.6)', 'rgba(248, 113, 113, 0.6)', 'rgba(248, 113, 113, 0.6)', 'rgba(248, 113, 113, 0.6)', 'rgba(248, 113, 113, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(34, 211, 238, 1)', 'rgba(34, 211, 238, 1)', 'rgba(34, 211, 238, 1)', 'rgba(34, 211, 238, 1)', 'rgba(34, 211, 238, 1)',
+                                'rgba(248, 113, 113, 1)', 'rgba(248, 113, 113, 1)', 'rgba(248, 113, 113, 1)', 'rgba(248, 113, 113, 1)', 'rgba(248, 113, 113, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { 
+                            y: { 
+                                beginAtZero: true,
+                                grid: { color: '#374151' },
+                                ticks: { color: '#9ca3af' }
+                            },
+                            x: {
+                                grid: { color: '#374151' },
+                                ticks: { color: '#9ca3af' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) { label += ': '; }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y > 0 ? '+' + context.parsed.y : context.parsed.y;
+                                            label += ' punti';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const nameForm = document.getElementById('name-generator-form');
+            const nameLoader = document.getElementById('name-generator-loader');
+            const nameResult = document.getElementById('name-generator-result');
+
+            nameForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const keyword = document.getElementById('name-keyword').value;
+                const prompt = `Crea una lista di 5 nomi di squadre di fantacalcio divertenti, unici e grintosi per la lega "FantaBarSport". Se fornita, usa questa parola chiave come ispirazione: "${keyword}". I nomi devono essere in italiano. Formatta la lista in modo pulito.`;
+                nameLoader.classList.remove('hidden');
+                nameResult.innerHTML = '';
+                await callGemini(prompt, nameResult, nameLoader, 'lista');
+            });
+
+            async function callGemini(prompt, resultContainer, loader, format) {
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: [{ text: prompt }]
+                    }]
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Errore API: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                        let text = result.candidates[0].content.parts[0].text;
+                        if (format === 'lista') {
+                             text = text.replace(/(\d\.)/g, '<br><strong>$1</strong>').replace(/\*/g, '');
+                        }
+                        resultContainer.innerHTML = `<div class="gemini-result">${text}</div>`;
+                    } else {
+                       resultContainer.innerHTML = `<div class="gemini-result text-red-400">Nessun risultato valido dalla IA. Riprova.</div>`;
+                    }
+                } catch (error) {
+                    console.error('Errore chiamata Gemini:', error);
+                    resultContainer.innerHTML = `<div class="gemini-result text-red-400">Si è verificato un errore. Controlla la console per i dettagli.</div>`;
+                } finally {
+                    loader.classList.add('hidden');
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
