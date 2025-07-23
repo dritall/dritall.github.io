@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -154,6 +154,14 @@
             paint-order: stroke fill;
             animation: neon-flicker-orange 2.5s infinite alternate;
         }
+        .logo-year {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: #fca5a5;
+            -webkit-text-stroke: 0.5px black;
+            paint-order: stroke fill;
+            animation: neon-flicker-red 2.8s infinite alternate;
+        }
         @keyframes neon-flicker-blue {
             0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #818cf8, 0 0 20px #6366f1, 0 0 30px #4f46e5, 0 0 40px #4338ca; }
             50% { text-shadow: 0 0 8px #fff, 0 0 15px #818cf8, 0 0 28px #6366f1, 0 0 38px #4f46e5, 0 0 50px #4338ca; }
@@ -162,6 +170,10 @@
             0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fcd34d, 0 0 20px #fbbf24, 0 0 30px #f59e0b, 0 0 40px #d97706; }
             50% { text-shadow: 0 0 8px #fff, 0 0 15px #fcd34d, 0 0 28px #fbbf24, 0 0 38px #f59e0b, 0 0 50px #d97706; }
         }
+        @keyframes neon-flicker-red {
+            0%, 100% { text-shadow: 0 0 2px #fff, 0 0 5px #fca5a5, 0 0 10px #f87171, 0 0 15px #ef4444, 0 0 20px #dc2626; }
+            50% { text-shadow: 0 0 3px #fff, 0 0 8px #fca5a5, 0 0 12px #f87171, 0 0 18px #ef4444, 0 0 25px #dc2626; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -169,10 +181,13 @@
     <div class="w-full">
         
         <header class="header-bg text-white text-center py-20 px-4">
-            <h1 class="flex flex-col items-center justify-center -space-y-8 md:-space-y-12">
-                <span class="logo-fanta">Fanta</span>
-                <span class="logo-laghee">Laghèè</span>
-            </h1>
+            <div class="flex flex-col items-center justify-center">
+                <h1 class="flex flex-col items-center justify-center -space-y-8 md:-space-y-12">
+                    <span class="logo-fanta">Fanta</span>
+                    <span class="logo-laghee">Laghèè</span>
+                </h1>
+                <span class="logo-year mt-4">25/26</span>
+            </div>
         </header>
 
         <nav class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm py-4 shadow-lg">
@@ -235,7 +250,7 @@
                 <div class="space-y-6">
                      <div class="p-6 rounded-lg rule-card">
                         <h3 class="text-xl font-semibold text-indigo-400">Mercato Pre-Campionato Libero (Senza Plusvalenze)</h3>
-                        <p class="mt-2 text-stone-300">Dall'apertura del mercato fino a 15 minuti prima dell'inizio della prima giornata, sarà possibile effettuare un numero illimitato di modifiche alla propria rosa. In questo periodo, però, <strong>non sarà possibile realizzare plusvalenze</strong>.</p>
+                        <p class="mt-2 text-stone-300">Dall'apertura del mercato (1 Agosto) fino a 15 minuti prima dell'inizio della prima giornata, sarà possibile effettuare un numero illimitato di modifiche alla propria rosa. In questo periodo, però, <strong>non sarà possibile realizzare plusvalenze</strong>.</p>
                         <p class="mt-2 text-amber-400 font-semibold">ATTENZIONE: Se la piattaforma Fantaclub dovesse consentire plusvalenze in questo lasso di tempo, le rose di tutte le squadre verranno resettate un paio di giorni prima dell'inizio del campionato. A quel punto, ogni partecipante dovrà inserire la propria rosa definitiva una sola volta. Daremo aggiornamenti appena usciranno le quotazioni sul portale.</p>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
@@ -243,13 +258,10 @@
                         <p class="mt-2 text-stone-300">È stata aggiunta una nuova mossa strategica che permette di acquistare un giocatore "bloccato". Ogni squadra ha a disposizione 2 "Colpi Proibiti" a stagione (uno per girone), utilizzabili solo tra la 12ª e la 25ª giornata e con una penalità in punti e gol.</p>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-indigo-400">Chiarimenti sulle Dinamiche di Mercato</h3>
-                        <p class="mt-2 text-stone-300">Vengono formalizzate due regole chiave per il mercato settimanale:
-                            <ul class="list-disc list-inside mt-2 pl-4">
-                                <li>Tutti i giocatori nuovi inseriti in lista o quelli non bloccati all'inizio della finestra di mercato sono acquistabili da chiunque.</li>
-                                <li>Viene introdotta una regola anti-speculazione: se un giocatore "bloccato" viene venduto, non potrà essere acquistato da nessuno nella finestra di mercato in corso, ma solo a partire da quella successiva.</li>
-                            </ul>
-                        </p>
+                        <h3 class="text-xl font-semibold text-indigo-400">Chiarimenti sulla Regola dei Giocatori Bloccati</h3>
+                        <p class="mt-2 text-stone-300">I giocatori presenti in almeno X (tot partecipanti alla lega / 6) squadre dopo l'inizio della PRIMA giornata di campionato saranno bloccati e risulteranno non sul mercato (fino alla validità in tempo reale di tale condizione).</p>
+                        <p class="mt-4 font-semibold text-white">Giocatori che risultano liberi all'inizio delle finestre di mercato</p>
+                        <p class="mt-2 text-stone-300">Se il giocatore Patagarro risulta svincolato, anche se bastasse un solo acquisto per bloccarlo, tutte le squadre nella giornata in cui il giocatore risulta svincolato possono provare a prenderlo. Sarà sicuramente bloccato dalla giornata successiva, fino a quando non scenderà nuovamente sotto il limite di blocco.</p>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
                         <h3 class="text-xl font-semibold text-indigo-400">Maggiori Informazioni</h3>
@@ -319,7 +331,7 @@
                 
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
                     <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Mercato Pre-Campionato Libero</h3>
-                    <p class="mt-2 text-stone-300">Dall'apertura del mercato fino a 15 minuti prima dell'inizio della prima giornata, sarà possibile effettuare un numero illimitato di modifiche alla propria rosa. In questo periodo, però, <strong>non sarà possibile realizzare plusvalenze</strong>.</p>
+                    <p class="mt-2 text-stone-300">Dall'apertura del mercato (1 Agosto) fino a 15 minuti prima dell'inizio della prima giornata, sarà possibile effettuare un numero illimitato di modifiche alla propria rosa. In questo periodo, però, <strong>non sarà possibile realizzare plusvalenze</strong>.</p>
                     <p class="mt-2 text-amber-400 font-semibold">ATTENZIONE: Se la piattaforma Fantaclub dovesse consentire plusvalenze in questo lasso di tempo, le rose di tutte le squadre verranno resettate un paio di giorni prima dell'inizio del campionato. A quel punto, ogni partecipante dovrà inserire la propria rosa definitiva una sola volta. Daremo aggiornamenti appena usciranno le quotazioni sul portale.</p>
                 </div>
 
@@ -518,11 +530,8 @@
                     <p class="max-w-3xl mx-auto text-stone-300">Segui questi semplici passaggi per unirti al Fanta Laghèè e iniziare la tua avventura.</p>
                 </div>
                 <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-2xl mx-auto text-center">
-                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Come Iscriversi</h3>
-                    <p class="text-stone-300 mb-6">Per partecipare alla lega, è necessario compilare il modulo di iscrizione. Una volta compilato, riceverai una mail di conferma con il link d'invito per entrare ufficialmente nella competizione su Fantaclub ed iniziare a giocare.</p>
-                    <a href="https://forms.gle/1aVn4M1MmGrA8qxT7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti inline-block px-8 py-3 rounded-full text-lg uppercase tracking-wider">
-                        Clicca Qui per Accedere al Modulo di Iscrizione
-                    </a>
+                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Iscrizioni</h3>
+                    <p class="text-stone-300 mb-6">L'iscrizione sarà disponibile nei prossimi giorni. Vi informeremo nel canale WhatsApp!</p>
                 </div>
             </section>
         </main>
