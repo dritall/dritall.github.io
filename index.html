@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Neon Noir (Cyan/Red on Dark) based on Logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Neon Noir (Blue/Purple/Orange on Dark) based on Logo -->
     <!-- Application Structure Plan: A tabbed single-page application with a new "Blog" and "Iscriviti" section. The structure is designed for clarity, with a dedicated "Novità" section for returning users and a persistent "Iscriviti" button for new ones. -->
     <!-- Visualization & Content Choices: Key stats use custom currency. Market rules are simplified for clarity. The blog is a static section designed for easy manual HTML updates on GitHub Pages. NO SVG/Mermaid used. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -18,7 +18,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #0c1427;
             color: #d1d5db;
-            background-image: linear-gradient(rgba(12, 20, 39, 0.97), rgba(12, 20, 39, 0.97)), url('https://i.imgur.com/B5HvTxQ.jpeg');
+            background-image: linear-gradient(rgba(12, 20, 39, 0.97), rgba(12, 20, 39, 0.97)), url('https://i.imgur.com/yIrKPbl.png');
             background-attachment: fixed;
             background-size: cover;
         }
@@ -34,11 +34,11 @@
             border: 1px solid #374151;
         }
         .nav-button.active {
-            background-color: #0891b2;
+            background-color: #4f46e5;
             color: #ffffff;
             font-weight: 600;
-            border-color: #0891b2;
-            box-shadow: 0 0 15px rgba(8, 145, 178, 0.5);
+            border-color: #4f46e5;
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
         }
         .nav-button:not(.active):hover {
             background-color: #1f2937;
@@ -68,13 +68,13 @@
         }
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(8, 145, 178, 0.3);
-            border-color: rgba(8, 145, 178, 0.5);
+            box-shadow: 0 0 25px rgba(79, 70, 229, 0.3);
+            border-color: rgba(79, 70, 229, 0.5);
         }
         .rule-card {
             background-color: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(10px);
-            border-left: 4px solid #0891b2;
+            border-left: 4px solid #4f46e5;
         }
         .accordion-item {
              background-color: rgba(30, 41, 59, 0.8);
@@ -120,34 +120,47 @@
             position: relative;
             z-index: 2;
         }
-        .logo-title-blue {
-            font-family: 'Pacifico', cursive;
-            animation: neon-flicker-blue 2.5s infinite alternate;
-        }
-        .logo-title-red {
-            font-family: 'Oswald', sans-serif;
-            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ef4444, 0 0 30px #ef4444, 0 0 40px #ef4444, 0 0 55px #ef4444, 0 0 75px #ef4444;
-        }
         .btn-iscriviti {
-            background-color: #ef4444;
-            color: #ffffff;
+            background-color: #f59e0b;
+            color: #111827;
             font-weight: 700;
             transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
         }
         .btn-iscriviti:hover {
-            background-color: #f87171;
+            background-color: #fbbf24;
             transform: scale(1.05);
         }
         .internal-link {
             text-decoration: underline;
-            color: #22d3ee;
+            color: #60a5fa;
             cursor: pointer;
             font-weight: 600;
         }
+        .logo-fanta {
+            font-family: 'Oswald', sans-serif;
+            font-size: 6rem;
+            color: #a5b4fc;
+            text-transform: uppercase;
+            -webkit-text-stroke: 1px black;
+            paint-order: stroke fill;
+            animation: neon-flicker-blue 3s infinite alternate;
+        }
+        .logo-laghee {
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
+            color: #fcd34d;
+            -webkit-text-stroke: 1.5px black;
+            paint-order: stroke fill;
+            animation: neon-flicker-orange 2.5s infinite alternate;
+        }
         @keyframes neon-flicker-blue {
-            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #0891b2, 0 0 30px #0891b2, 0 0 40px #0891b2; color: #e0f2fe; }
-            50% { text-shadow: 0 0 5px #fff, 0 0 12px #fff, 0 0 25px #0891b2, 0 0 35px #0891b2, 0 0 45px #0891b2; color: #bae6fd; }
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #818cf8, 0 0 20px #6366f1, 0 0 30px #4f46e5, 0 0 40px #4338ca; }
+            50% { text-shadow: 0 0 8px #fff, 0 0 15px #818cf8, 0 0 28px #6366f1, 0 0 38px #4f46e5, 0 0 50px #4338ca; }
+        }
+        @keyframes neon-flicker-orange {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fcd34d, 0 0 20px #fbbf24, 0 0 30px #f59e0b, 0 0 40px #d97706; }
+            50% { text-shadow: 0 0 8px #fff, 0 0 15px #fcd34d, 0 0 28px #fbbf24, 0 0 38px #f59e0b, 0 0 50px #d97706; }
         }
     </style>
 </head>
@@ -156,9 +169,9 @@
     <div class="w-full">
         
         <header class="header-bg text-white text-center py-20 px-4">
-            <p class="text-xl text-stone-300 mb-4"></p>
-            <h1 class="text-6xl md:text-8xl">
-                <span class="logo-title-blue">Fanta</span> <span class="logo-title-red uppercase tracking-widest ml-2">Laghèè<span class="logo-title-blue uppercase tracking-widest ml-2"> 25/26</span>
+            <h1 class="flex flex-col items-center justify-center -space-y-8 md:-space-y-12">
+                <span class="logo-fanta">Fanta</span>
+                <span class="logo-laghee">Laghèè</span>
             </h1>
         </header>
 
@@ -179,36 +192,36 @@
         <main class="container mx-auto p-4 md:p-8">
             <section id="panoramica" class="content-section active">
                  <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-cyan-400 mb-2">Panoramica della Lega</h2>
+                    <h2 class="text-4xl font-bold text-indigo-400 mb-2">Panoramica della Lega</h2>
                     <p class="max-w-3xl mx-auto text-stone-400">Benvenuto nella pagina ufficiale del Fanta Laghèè. Qui trovi una visione d'insieme delle regole e dei numeri chiave della lega. Usa le schede in alto per esplorare ogni dettaglio.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="stat-card">
-                        <h3 class="font-bold text-xl text-cyan-400">Quota Iscrizione</h3>
+                        <h3 class="font-bold text-xl text-indigo-400">Quota Iscrizione</h3>
                         <p class="text-4xl font-bold text-white mt-2">100 🍆</p>
                         <p class="text-sm text-stone-400 mt-2">Da saldare entro la 3ª giornata.</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="font-bold text-xl text-cyan-400">Budget Iniziale 📈</h3>
+                        <h3 class="font-bold text-xl text-indigo-400">Budget Iniziale 📈</h3>
                         <p class="text-4xl font-bold text-white mt-2">600</p>
                         <p class="text-sm text-stone-400 mt-2">Fantamilioni per costruire la tua rosa.</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="font-bold text-xl text-cyan-400">Cambi Mercato 🔃</h3>
+                        <h3 class="font-bold text-xl text-indigo-400">Cambi Mercato 🔃</h3>
                         <p class="text-4xl font-bold text-white mt-2">15 + 15</p>
                         <p class="text-sm text-stone-400 mt-2">Per girone di andata e ritorno.</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="font-bold text-xl text-cyan-400">Composizione Rosa 📰</h3>
+                        <h3 class="font-bold text-xl text-indigo-400">Composizione Rosa 📰</h3>
                         <p class="text-2xl font-bold text-white mt-2">3-8-8-5</p>
                         <p class="text-sm text-stone-400 mt-2">Portieri - Difensori - Centrocampisti - Attaccanti.</p>
                     </div>
                      <div class="stat-card">
-                        <h3 class="font-bold text-xl text-cyan-400">Novità: Il Colpo Proibito 🔞</h3>
+                        <h3 class="font-bold text-xl text-indigo-400">Novità: Il Colpo Proibito 🔞</h3>
                         <p class="text-lg font-medium text-white mt-2">Acquista un giocatore anche se bloccato... ma attento, tutto ha un costo!</p>
                     </div>
                     <div class="stat-card">
-                        <h3 class="font-bold text-xl text-cyan-400">Premi 🏆</h3>
+                        <h3 class="font-bold text-xl text-indigo-400">Premi 🏆</h3>
                         <p class="text-lg font-medium text-white mt-2">Premi di giornata, coppe, campionato e miglior punteggio assoluto!</p>
                     </div>
                 </div>
@@ -221,16 +234,16 @@
                 </div>
                 <div class="space-y-6">
                      <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">Mercato Pre-Campionato Libero (Senza Plusvalenze)</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">Mercato Pre-Campionato Libero (Senza Plusvalenze)</h3>
                         <p class="mt-2 text-stone-300">Dall'apertura del mercato fino a 15 minuti prima dell'inizio della prima giornata, sarà possibile effettuare un numero illimitato di modifiche alla propria rosa. In questo periodo, però, <strong>non sarà possibile realizzare plusvalenze</strong>.</p>
-                        <p class="mt-2 text-red-400 font-semibold">ATTENZIONE: Se la piattaforma Fantaclub dovesse consentire plusvalenze in questo lasso di tempo, le rose di tutte le squadre verranno resettate un paio di giorni prima dell'inizio del campionato. A quel punto, ogni partecipante dovrà inserire la propria rosa definitiva una sola volta. Daremo aggiornamenti appena usciranno le quotazioni sul portale.</p>
+                        <p class="mt-2 text-amber-400 font-semibold">ATTENZIONE: Se la piattaforma Fantaclub dovesse consentire plusvalenze in questo lasso di tempo, le rose di tutte le squadre verranno resettate un paio di giorni prima dell'inizio del campionato. A quel punto, ogni partecipante dovrà inserire la propria rosa definitiva una sola volta. Daremo aggiornamenti appena usciranno le quotazioni sul portale.</p>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">Introdotto: Il Colpo Proibito</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">Introdotto: Il Colpo Proibito</h3>
                         <p class="mt-2 text-stone-300">È stata aggiunta una nuova mossa strategica che permette di acquistare un giocatore "bloccato". Ogni squadra ha a disposizione 2 "Colpi Proibiti" a stagione (uno per girone), utilizzabili solo tra la 12ª e la 25ª giornata e con una penalità in punti e gol.</p>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">Chiarimenti sulle Dinamiche di Mercato</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">Chiarimenti sulle Dinamiche di Mercato</h3>
                         <p class="mt-2 text-stone-300">Vengono formalizzate due regole chiave per il mercato settimanale:
                             <ul class="list-disc list-inside mt-2 pl-4">
                                 <li>Tutti i giocatori nuovi inseriti in lista o quelli non bloccati all'inizio della finestra di mercato sono acquistabili da chiunque.</li>
@@ -239,7 +252,7 @@
                         </p>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">Maggiori Informazioni</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">Maggiori Informazioni</h3>
                         <p class="mt-2 text-stone-300">Maggiori informazioni sulle novità sono disponibili all'interno delle altre sezioni dedicate.</p>
                     </div>
                 </div>
@@ -252,7 +265,7 @@
                 </div>
                 <div class="space-y-6">
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">1. Iscrizione</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">1. Iscrizione</h3>
                         <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
                             <li><strong>Quota:</strong> 100 🍆.</li>
                             <li><strong>Scadenza Saldo:</strong> La quota deve essere versata obbligatoriamente <strong>entro la terza giornata</strong> di campionato, pena l'esclusione.</li>
@@ -261,9 +274,9 @@
                         </ul>
                     </div>
                      <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">2. App e Fonti Dati</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">2. App e Fonti Dati</h3>
                         <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
-                            <li><strong>App di Gestione:</strong> <a href="https://www.fantaclub.it/" target="_blank" rel="noopener noreferrer" class="underline text-cyan-400 hover:text-cyan-300">Fantaclub</a>.</li>
+                            <li><strong>App di Gestione:</strong> <a href="https://www.fantaclub.it/" target="_blank" rel="noopener noreferrer" class="underline text-indigo-400 hover:text-indigo-300">Fantaclub</a>.</li>
                             <li><strong>Fonte Quotazioni:</strong> Milano.</li>
                             <li><strong>Fonte Assist:</strong> Fantaclub (valutazione su volontarietà, dribbling e palla deviata).</li>
                             <li><strong>Fonte Voti - Fantaclub Classic:</strong>
@@ -277,17 +290,16 @@
                         </ul>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">3. Creazione della Rosa Iniziale</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">3. Creazione della Rosa Iniziale</h3>
                          <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
                             <li><strong>Periodo Inserimento:</strong> Da Sabato 16 Agosto 2025 fino a <strong>Sabato 23 Agosto 2025 alle ore 18.15</strong>.</li>
                              <li><strong>Scadenza:</strong> La consegna della prima rosa deve avvenire <strong>15 minuti prima</strong> dell'inizio della prima partita di campionato (23 Agosto ore 18.30).</li>
                             <li><strong>Budget Iniziale:</strong> 600 Fantamilioni (le quotazioni sono diverse da quelle di Gazzetta o altri portali, per quello i crediti a disposizione sono alti).</li>
                             <li><strong>Composizione:</strong> 3 portieri - 8 difensori - 8 centrocampisti - 5 attaccanti.</li>
-                            <li><strong>ATTENZIONE:</strong> La rosa iniziale può essere confermata <strong>una sola volta</strong>. Ogni movimento successivo verrà conteggiato come cambio stagionale.</li>
                         </ul>
                     </div>
                     <div class="p-6 rounded-lg rule-card">
-                        <h3 class="text-xl font-semibold text-cyan-400">4. Gestione Formazione Settimanale</h3>
+                        <h3 class="text-xl font-semibold text-indigo-400">4. Gestione Formazione Settimanale</h3>
                          <ul class="list-disc list-inside mt-2 text-stone-300 space-y-1">
                             <li><strong>Moduli Consentiti:</strong> 343, 352, 361, 433, 442, 451, 532, 541.</li>
                             <li><strong>Panchina e Sostituzioni:</strong> 11 riserve (panchina lunga) e 5 sostituzioni disponibili. L'ordine di inserimento in panchina determina la priorità di sostituzione.</li>
@@ -306,16 +318,16 @@
                 </div>
                 
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
-                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Mercato Pre-Campionato Libero</h3>
+                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Mercato Pre-Campionato Libero</h3>
                     <p class="mt-2 text-stone-300">Dall'apertura del mercato fino a 15 minuti prima dell'inizio della prima giornata, sarà possibile effettuare un numero illimitato di modifiche alla propria rosa. In questo periodo, però, <strong>non sarà possibile realizzare plusvalenze</strong>.</p>
-                    <p class="mt-2 text-red-400 font-semibold">ATTENZIONE: Se la piattaforma Fantaclub dovesse consentire plusvalenze in questo lasso di tempo, le rose di tutte le squadre verranno resettate un paio di giorni prima dell'inizio del campionato. A quel punto, ogni partecipante dovrà inserire la propria rosa definitiva una sola volta. Daremo aggiornamenti appena usciranno le quotazioni sul portale.</p>
+                    <p class="mt-2 text-amber-400 font-semibold">ATTENZIONE: Se la piattaforma Fantaclub dovesse consentire plusvalenze in questo lasso di tempo, le rose di tutte le squadre verranno resettate un paio di giorni prima dell'inizio del campionato. A quel punto, ogni partecipante dovrà inserire la propria rosa definitiva una sola volta. Daremo aggiornamenti appena usciranno le quotazioni sul portale.</p>
                 </div>
 
                 <div>
-                    <h3 class="text-2xl font-semibold text-center text-cyan-400 mb-4">Esempi Pratici di Mercato</h3>
+                    <h3 class="text-2xl font-semibold text-center text-indigo-400 mb-4">Esempi Pratici di Mercato</h3>
                     <div class="space-y-4">
                         <div class="accordion-item rounded-lg">
-                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-cyan-400 flex justify-between items-center">
+                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-indigo-400 flex justify-between items-center">
                                 CASO 1: Acquisto di un giocatore LIBERO
                                 <span class="transform transition-transform duration-300">▼</span>
                             </button>
@@ -329,7 +341,7 @@
                             </div>
                         </div>
                          <div class="accordion-item rounded-lg">
-                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-cyan-400 flex justify-between items-center">
+                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-indigo-400 flex justify-between items-center">
                                 CASO 2: Acquisto di un giocatore NUOVO
                                 <span class="transform transition-transform duration-300">▼</span>
                             </button>
@@ -343,7 +355,7 @@
                             </div>
                         </div>
                         <div class="accordion-item rounded-lg">
-                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-cyan-400 flex justify-between items-center">
+                            <button class="accordion-header w-full text-left p-4 font-semibold text-lg text-indigo-400 flex justify-between items-center">
                                 CASO 3: Giocatore "Bloccato" che viene venduto
                                 <span class="transform transition-transform duration-300">▼</span>
                             </button>
@@ -359,9 +371,9 @@
                     </div>
                 </div>
 
-                <div class="mt-8 bg-gray-800 border-2 border-dashed border-red-500 p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold text-center text-red-500 mb-2">✨ Il Colpo Proibito ✨</h3>
-                    <p class="text-center text-red-300 mb-4">Questa mossa speciale permette di aggirare la regola dei giocatori bloccati.</p>
+                <div class="mt-8 bg-gray-800 border-2 border-dashed border-amber-500 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold text-center text-amber-400 mb-2">✨ Il Colpo Proibito ✨</h3>
+                    <p class="text-center text-amber-300 mb-4">Questa mossa speciale permette di aggirare la regola dei giocatori bloccati.</p>
                     <ul class="list-disc list-inside space-y-2 text-stone-300">
                         <li><strong>Cos'è:</strong> Permette di acquistare un giocatore che sarebbe "bloccato" perché già presente nel numero massimo di rose consentito.</li>
                         <li><strong>Quantità:</strong> <strong>2 "Colpi Proibiti"</strong> in totale per la stagione (1 per il girone d'andata, 1 per il ritorno). Non sono cumulabili.</li>
@@ -381,7 +393,7 @@
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Tabella Bonus/Malus</h3>
+                        <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Tabella Bonus/Malus</h3>
                         <ul class="space-y-2">
                             <li class="flex justify-between items-center text-green-400"><span>Gol Difensore/Portiere</span> <span class="font-bold text-lg">+4</span></li>
                             <li class="flex justify-between items-center text-green-400"><span>Gol Centrocampista</span> <span class="font-bold text-lg">+3.5</span></li>
@@ -397,7 +409,7 @@
                         <p class="text-xs text-stone-400 mt-2">Nota: la somma dei malus per cartellini non può superare -1.</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                         <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Modificatore Difesa</h3>
+                         <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Modificatore Difesa</h3>
                          <p class="text-stone-300 mb-4"><strong>Regola Invariata:</strong> La regola del modificatore di difesa rimane identica a quella della scorsa stagione. Il bonus si applica solo schierando 4 o più difensori e si calcola sulla media voto del portiere e dei 3 migliori difensori.</p>
                          <ul class="space-y-2">
                             <li class="flex justify-between items-center"><span>Media Voto ≥ 7</span> <span class="font-bold text-lg text-green-400">+6 Punti</span></li>
@@ -407,7 +419,7 @@
                     </div>
                 </div>
                  <div class="mt-8">
-                    <h3 class="text-2xl font-semibold text-center text-cyan-400 mb-4">Impatto Visivo Bonus/Malus</h3>
+                    <h3 class="text-2xl font-semibold text-center text-indigo-400 mb-4">Impatto Visivo Bonus/Malus</h3>
                     <div class="chart-container bg-gray-800 p-4 rounded-lg shadow-lg">
                         <canvas id="bonusMalusChart"></canvas>
                     </div>
@@ -420,19 +432,19 @@
                     <p class="max-w-3xl mx-auto text-stone-300">La gloria non si ottiene solo con la classifica generale. Il Fanta Laghèè è un ecosistema di tornei e premi che rendono ogni giornata avvincente.</p>
                 </div>
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Struttura Generale e Montepremi</h3>
+                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Struttura Generale e Montepremi</h3>
                     <p class="text-stone-300 mb-6">Tutte le competizioni andranno a premi. Il modello generale prevede:</p>
                     
                     <div class="space-y-4">
                         <div class="flex items-start">
-                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xl">1</div>
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">1</div>
                             <div class="ml-4">
                                 <h4 class="font-bold text-lg text-white">Classifica Generale</h4>
                                 <p class="text-stone-300">A punti, per tutte le 38 giornate. <strong>Andranno a premi le prime 5 squadre classificate.</strong></p>
                             </div>
                         </div>
                          <div class="flex items-start">
-                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xl">2</div>
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">2</div>
                             <div class="ml-4">
                                 <h4 class="font-bold text-lg text-white">Coppe (Super Lega & Coppa Uefa)</h4>
                                 <ul class="list-disc list-inside text-stone-300">
@@ -442,7 +454,7 @@
                             </div>
                         </div>
                         <div class="flex items-start">
-                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xl">3</div>
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">3</div>
                             <div class="ml-4">
                                 <h4 class="font-bold text-lg text-white">Premi Speciali</h4>
                                 <p class="text-stone-300">Sono presenti il <strong>Premio di Giornata</strong> e il premio per il <strong>Miglior Punteggio Assoluto</strong> della stagione. Tutti i premi verranno saldati a fine competizione.</p>
@@ -451,7 +463,7 @@
                     </div>
 
                     <div class="mt-8 border-t border-gray-700 pt-6 text-center">
-                        <p class="font-semibold text-cyan-400">Tutte le informazioni sulla composizione, suddivisione e impostazione dei tornei, dei premi e dei calendari saranno comunicati tra la 3ª e la 5ª giornata di campionato.</p>
+                        <p class="font-semibold text-indigo-400">Tutte le informazioni sulla composizione, suddivisione e impostazione dei tornei, dei premi e dei calendari saranno comunicati tra la 3ª e la 5ª giornata di campionato.</p>
                     </div>
                 </div>
             </section>
@@ -462,7 +474,7 @@
                     <p class="max-w-3xl mx-auto text-stone-300">Il calcio è imprevedibile. Questa sezione chiarisce come vengono gestite le situazioni particolari, come le partite rinviate o anticipate, per garantire equità e trasparenza a tutti i partecipanti.</p>
                 </div>
                  <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Rinvii e Anticipi</h3>
+                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Rinvii e Anticipi</h3>
                     <p class="text-stone-300 mb-4">La gestione delle partite fuori calendario segue una regola precisa:</p>
                     <ul class="list-disc list-inside space-y-2 text-stone-300">
                         <li>Tutte le partite che si svolgono nel lasso di tempo intercorrente tra la fine del turno precedente e l’inizio del successivo rispetto a quello in corso di svolgimento fanno regolarmente parte di un turno di gioco e i voti dei calciatori saranno normally presi in considerazione per le fasi di calcolo.</li>
@@ -490,7 +502,7 @@
                     <!-- Esempio di Post del Blog -->
                     <article class="bg-gray-800 p-6 rounded-lg shadow-lg">
                         <p class="text-sm text-stone-400">23 Luglio 2025</p>
-                        <h3 class="text-2xl font-bold text-cyan-400 mt-2">Ci Siamo! Inizia una Nuova Era!</h3>
+                        <h3 class="text-2xl font-bold text-indigo-400 mt-2">Ci Siamo! Inizia una Nuova Era!</h3>
                         <div class="prose prose-invert mt-4 text-stone-300">
                             <p>Benvenuti a tutti nel nuovo sito ufficiale del Fanta Laghèè! Questa sezione sarà il nostro punto di ritrovo settimanale, dove commenteremo le imprese e le disfatte di ogni giornata. Le danze stanno per iniziare, il mercato è in fermento e la tensione è già alle stelle. Che la stagione 2025/2026 abbia inizio. In bocca al lupo a tutti i mister!</p>
                         </div>
@@ -506,13 +518,11 @@
                     <p class="max-w-3xl mx-auto text-stone-300">Segui questi semplici passaggi per unirti al Fanta Laghèè e iniziare la tua avventura.</p>
                 </div>
                 <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-2xl mx-auto text-center">
-                    <h3 class="text-2xl font-semibold text-cyan-400 mb-4">Come Iscriversi</h3>
+                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Come Iscriversi</h3>
                     <p class="text-stone-300 mb-6">Per partecipare alla lega, è necessario compilare il modulo di iscrizione. Una volta compilato, riceverai una mail di conferma con il link d'invito per entrare ufficialmente nella competizione su Fantaclub ed iniziare a giocare.</p>
-                    <a href="#" class="btn-iscriviti inline-block px-8 py-3 rounded-full text-lg uppercase tracking-wider">
-                        <!-- Inserisci qui il link al tuo Google Form o altro modulo -->
+                    <a href="https://forms.gle/1aVn4M1MmGrA8qxT7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti inline-block px-8 py-3 rounded-full text-lg uppercase tracking-wider">
                         Clicca Qui per Accedere al Modulo di Iscrizione
                     </a>
-                    <p class="text-xs text-stone-400 mt-4">(Il link al modulo di iscrizione sarà reso disponibile a breve)</p>
                 </div>
             </section>
         </main>
@@ -633,4 +643,3 @@
 
 </body>
 </html>
->
