@@ -126,7 +126,7 @@
             async function fetchFixtures(round) {
                 fixturesContainer.innerHTML = `<div class="text-center py-16"><div class="text-6xl mb-4 animate-spin">⏳</div><h3 class="text-2xl font-semibold text-stone-300">Caricamento giornata...</h3></div>`;
                 try {
-                    const response = await fetch(`/api/getCalendario?round=${encodeURIComponent(round)}`);
+                    const response = await fetch(`/api/getClassifica`);
                     const data = await response.json();
 
                     if (data.error) throw new Error(data.error);
