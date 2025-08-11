@@ -125,16 +125,24 @@
         <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti px-4 py-2 rounded-full text-xs md:text-sm uppercase">Iscriviti</a>
     </header>
 
-    <nav id="main-nav">
+   <nav id="main-nav">
     <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-2 md:gap-3 py-3">
-        <!-- Link alla Homepage con le sezioni -->
-        <a href="index.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Panoramica & Regolamento</a>
+        <!-- Pulsanti per le sezioni interne di index.html -->
+        <button data-target="panoramica" class="nav-button nav-link active px-3 py-2 rounded-full text-xs md:text-sm">Panoramica</button>
+        <button data-target="novita" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Novità</button>
+        <button data-target="regole" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Regolamento</button>
+        <button data-target="mercato" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Mercato</button>
+        <button data-target="bonus-malus" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Bonus/Malus</button>
+        <button data-target="partecipanti" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">I Protagonisti</button>
+        <button data-target="verdetto" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Il Verdetto</button>
         
-        <!-- Link alle nuove pagine dinamiche -->
-        <a href="info-serie-a.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Info Serie A</a>
-        <a href="calendario.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Calendario</a>
-        
-        <!-- Link Esterno -->
+        <!-- Link alle pagine esterne -->
+        <a href="info-serie-a.html" class="nav-button px-3 py-2 rounded-full text-xs md:text-sm flex items-center gap-1" title="Info Serie A">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            Info Serie A
+        </a>
+         <a href="calendario.html" class="nav-button px-3 py-2 rounded-full text-xs md:text-sm">Calendario</a>
+
         <a href="https://drive.google.com/file/d/17821ovoRg0-fae8D-QeVpOAJGHfoWyyg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="external-link-button px-3 py-2 rounded-full text-xs md:text-sm flex items-center gap-1" title="Scarica Regolamento PDF">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
             PDF
