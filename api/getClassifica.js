@@ -7,8 +7,11 @@ export default async function handler(request, response) {
     return response.status(500).json({ error: 'API Key non configurata sul server.' });
   }
 
+  // ID Lega Serie A = 135
+  // MODIFICA DEFINITIVA: Usiamo la stagione 2023 come suggerito dall'errore dell'API
+  // per avere dati di test validi.
   const leagueId = 135;
-  const season = 2024; 
+  const season = 2023; 
 
   const apiUrl = `https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`;
 
@@ -21,21 +24,24 @@ export default async function handler(request, response) {
       },
     });
 
-    // NUOVO CONTROLLO DI DEBUG:
-    // Prima di provare a leggere i dati come JSON, controlliamo se la chiamata è andata a buon fine.
     if (!apiResponse.ok) {
-      // Se la risposta non è OK (es. errore 401, 403, 500), leggiamo l'errore come testo...
       const errorText = await apiResponse.text();
-      // ...e lo lanciamo come un errore, così lo vedremo sulla pagina.
       throw new Error(`API-Football ha risposto con un errore: ${apiResponse.status} - ${errorText}`);
     }
 
     const data = await apiResponse.json();
 
     if (data.errors && Object.keys(data.errors).length > 0) {
-      throw new Error(JSON.stringify(data.errors));
+      let errorMessage = "Errore dall'API: ";
+      if(typeof data.errors === 'object' && data.errors !== null) {
+          errorMessage += Object.values(data.errors).join(', ');
+      } else {
+          errorMessage += JSON.stringify(data.errors);
+      }
+      throw new Error(errorMessage);
     }
 
+    // Imposta una cache di 1 ora per non sprecare chiamate API
     response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
     
     return response.status(200).json({
