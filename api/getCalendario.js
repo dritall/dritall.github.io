@@ -1,43 +1,42 @@
-// File: /api/getPartita.js
+// File: /api/getCalendario.js
 
 export default async function handler(request, response) {
   const apiKey = process.env.API_FOOTBALL_KEY;
-  const { id } = request.query; // ID della partita
+  // Recuperiamo la giornata dalla richiesta URL (es. ?round=Regular%20Season%20-%201)
+  const { round } = request.query;
 
   if (!apiKey) {
     return response.status(500).json({ error: 'API Key non configurata.' });
   }
-  if (!id) {
-    return response.status(400).json({ error: 'Parametro "id" mancante.' });
+  if (!round) {
+    return response.status(400).json({ error: 'Parametro "round" mancante.' });
   }
 
-  // Chiamiamo l'endpoint per gli eventi della partita
-  const eventsUrl = `https://v3.football.api-sports.io/fixtures/events?fixture=${id}`;
+  const leagueId = 135;
+  const season = 2023; // Per test
+
+  const apiUrl = `https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${season}&round=${round}`;
 
   try {
-    const apiResponse = await fetch(eventsUrl, {
-        method: 'GET',
-        headers: { 
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-            'x-rapidapi-key': apiKey 
-        }
+    const apiResponse = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-host': 'v3.football.api-sports.io',
+        'x-rapidapi-key': apiKey,
+      },
     });
-    
+
     if (!apiResponse.ok) {
-        const errorText = await apiResponse.text();
-        throw new Error(`Errore da API-Football (events): ${errorText}`);
+      const errorText = await apiResponse.text();
+      throw new Error(`API-Football ha risposto con un errore: ${apiResponse.status} - ${errorText}`);
     }
 
-    const eventsData = await apiResponse.json();
-    
+    const data = await apiResponse.json();
     response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate'); // Cache di 1 ora
-    return response.status(200).json({ 
-        events: eventsData.response
-    });
+    return response.status(200).json({ fixtures: data.response });
 
   } catch (error) {
-    console.error("Errore serverless in getPartita:", error);
+    console.error("Errore serverless in getCalendario:", error);
     return response.status(500).json({ error: error.message });
   }
 }
-
