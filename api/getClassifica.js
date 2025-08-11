@@ -9,10 +9,10 @@ export default async function handler(request, response) {
   }
 
   // ID Lega Serie A = 135
-  // Per la stagione, usiamo 2024 per avere dati di test. 
-  // Quando inizierà la nuova stagione, basterà cambiare questo in 2025.
+  // MODIFICA: Usiamo la stagione 2023 per avere dati completi a scopo di test.
+  // Una volta che la stagione 24/25 sarà iniziata e presente sull'API, rimetteremo 2024.
   const leagueId = 135;
-  const season = 2024; 
+  const season = 2023; 
 
   const apiUrl = `https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`;
 
@@ -39,6 +39,11 @@ export default async function handler(request, response) {
     });
 
   } catch (error) {
+    console.error("Errore nella funzione serverless:", error);
+    return response.status(500).json({ error: `Errore nel contattare l'API di Football: ${error.message}` });
+  }
+}
+
     console.error("Errore nella funzione serverless:", error);
     return response.status(500).json({ error: `Errore nel contattare l'API di Football: ${error.message}` });
   }
