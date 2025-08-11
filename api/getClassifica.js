@@ -8,7 +8,7 @@ export default async function handler(request, response) {
   }
 
   const leagueId = 135;
-  const season = 2023; 
+  const season = 2024; 
 
   const apiUrl = `https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`;
 
