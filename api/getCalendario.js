@@ -2,7 +2,6 @@
 
 export default async function handler(request, response) {
   const apiKey = process.env.API_FOOTBALL_KEY;
-  // Recuperiamo la giornata dalla richiesta URL (es. ?round=Regular%20Season%20-%201)
   const { round } = request.query;
 
   if (!apiKey) {
@@ -21,7 +20,7 @@ export default async function handler(request, response) {
     const apiResponse = await fetch(apiUrl, {
       method: 'GET',
       headers: {
-        'x-rapidapi-host': 'v3.football.api-sports.io',
+        'x-rapidapi-host': 'v3.football.api-sports.io', // Questo pezzo mancava
         'x-rapidapi-key': apiKey,
       },
     });
@@ -32,7 +31,7 @@ export default async function handler(request, response) {
     }
 
     const data = await apiResponse.json();
-    response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate'); // Cache di 1 ora
+    response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
     return response.status(200).json({ fixtures: data.response });
 
   } catch (error) {
@@ -40,8 +39,3 @@ export default async function handler(request, response) {
     return response.status(500).json({ error: error.message });
   }
 }
-
-        });
-    </script>
-</body>
-</html>
