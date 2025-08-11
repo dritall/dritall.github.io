@@ -1,275 +1,46 @@
-<!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario Serie A - Fanta Laghèe</title>
-    <meta name="description" content="Calendario e risultati della Serie A per la lega Fanta Laghèe.">
-    
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJ+SURBVHgB7ZfRddswEEDfBv//aCTYJsEMEGyCZhPEJkgyQZgJwhkgbBC2g2ATBBsQJ2jcxpZlS/I48t25IuKxZFnWfDoVAAAA8A/wv4gA/jEABuB/gA3gAKiK0aUeS0eAC+D5fM4An8bkvLM8A84A16PZ3N4A30fzeQc8A8pSj/sBfC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5108B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/sBvC/N5118B8pSj/s-AAAAAElFTkSuQmCC">
+// File: /api/getCalendario.js
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+export default async function handler(request, response) {
+  const apiKey = process.env.API_FOOTBALL_KEY;
+  // Recuperiamo la giornata dalla richiesta URL (es. ?round=Regular%20Season%20-%201)
+  const { round } = request.query;
 
-    <style>
-        :root {
-            --background-color: #010409;
-            --primary-text: #c9d1d9;
-            --card-bg: #161B22;
-            --border-color: #30363d;
-            --accent-blue: #4f46e5;
-            --accent-orange: #f59e0b;
-        }
-        body { font-family: 'Inter', sans-serif; background-color: var(--background-color); color: var(--primary-text); }
-        .background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: url('image/stadium-bg.jpg'); background-size: cover; background-position: center; }
-        .background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: rgba(1, 4, 9, 0.75); }
-        #secondary-header { background-color: rgba(1, 4, 9, 0.8); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-color); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
-        #secondary-logo { height: 40px; width: auto; }
-        #main-nav { position: sticky; top: 0; z-index: 40; background-color: rgba(1, 4, 9, 0.5); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-color); }
-        .nav-button { transition: all 0.3s ease; color: #9ca3af; background-color: rgba(31, 41, 59, 0.5); border: 1px solid #374151; }
-        .nav-button.active { background-color: var(--accent-blue); color: #ffffff; font-weight: 600; border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(79, 70, 229, 0.5); }
-        .nav-button:not(.active):hover { background-color: #374151; color: #f9fafb; }
-        .external-link-button { transition: all 0.3s ease; color: var(--accent-orange); background-color: rgba(245, 158, 11, 0.1); border: 1px solid var(--accent-orange); }
-        .external-link-button:hover { background-color: rgba(245, 158, 11, 0.2); box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
-        .btn-iscriviti { background-color: var(--accent-orange); color: #111827; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
-        .btn-iscriviti:hover { background-color: #fbbf24; transform: scale(1.05); }
-        #match-modal { background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background-color: var(--card-bg); border: 1px solid var(--border-color); }
-    </style>
-</head>
-<body class="antialiased">
-<div class="background-container"></div>
-<div class="background-overlay"></div>
+  if (!apiKey) {
+    return response.status(500).json({ error: 'API Key non configurata.' });
+  }
+  if (!round) {
+    return response.status(400).json({ error: 'Parametro "round" mancante.' });
+  }
 
-<div class="w-full">
-    
-    <header id="secondary-header">
-        <a href="index.html"><img id="secondary-logo" src="image/logo-compact.png" alt="Fanta Laghèe Logo"></a>
-        <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti px-4 py-2 rounded-full text-xs md:text-sm uppercase">Iscriviti</a>
-    </header>
+  const leagueId = 135;
+  const season = 2023; // Per test
 
-    <nav id="main-nav">
-        <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-2 md:gap-3 py-3">
-            <a href="index.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Panoramica & Regolamento</a>
-            <a href="info-serie-a.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Info Serie A</a>
-            <a href="calendario.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Calendario</a>
-            
-            <a href="https://drive.google.com/file/d/17821ovoRg0-fae8D-QeVpOAJGHfoWyyg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="external-link-button px-3 py-2 rounded-full text-xs md:text-sm flex items-center gap-1" title="Scarica Regolamento PDF">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                PDF
-            </a>
-        </div>
-    </nav>
+  const apiUrl = `https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${season}&round=${round}`;
 
-    <main class="container mx-auto p-4 md:p-8 relative z-10">
-        
-        <div class="text-center mb-8">
-            <h2 class="text-4xl lg:text-5xl font-bold text-indigo-400 mb-2" style="font-family: 'Oswald', sans-serif;">CALENDARIO & RISULTATI</h2>
-            <p class="max-w-3xl mx-auto text-stone-400">Seleziona una giornata per vedere le partite e i risultati.</p>
-        </div>
+  try {
+    const apiResponse = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-host': 'v3.football.api-sports.io',
+        'x-rapidapi-key': apiKey,
+      },
+    });
 
-        <div class="mb-8 max-w-sm mx-auto">
-            <select id="round-selector" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" disabled>
-                <option>Caricamento giornate...</option>
-            </select>
-        </div>
+    if (!apiResponse.ok) {
+      const errorText = await apiResponse.text();
+      throw new Error(`API-Football ha risposto con un errore: ${apiResponse.status} - ${errorText}`);
+    }
 
-        <div id="fixtures-container">
-            <div class="text-center py-16">
-                <div class="text-6xl mb-4 animate-spin">⏳</div>
-                <h3 class="text-2xl font-semibold text-stone-300">Caricamento in corso...</h3>
-            </div>
-        </div>
+    const data = await apiResponse.json();
+    response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate'); // Cache di 1 ora
+    return response.status(200).json({ fixtures: data.response });
 
-    </main>
-</div>
+  } catch (error) {
+    console.error("Errore serverless in getCalendario:", error);
+    return response.status(500).json({ error: error.message });
+  }
+}
 
-<!-- Modale per i dettagli della partita (inizialmente nascosto) -->
-<div id="match-modal" class="fixed inset-0 w-full h-full flex items-center justify-center p-4 z-50 hidden">
-    <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
-        <div id="modal-body" class="p-6"></div>
-        <div class="p-4 bg-gray-900/50 border-t border-gray-700 text-right">
-            <button id="close-modal-btn" class="nav-button active px-4 py-2 rounded-md">Chiudi</button>
-        </div>
-    </div>
-</div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPage = 'calendario.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const linkPage = link.getAttribute('href');
-                if (linkPage === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-
-            const roundSelector = document.getElementById('round-selector');
-            const fixturesContainer = document.getElementById('fixtures-container');
-            const modal = document.getElementById('match-modal');
-            const modalBody = document.getElementById('modal-body');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-
-            async function fetchFixtures(round) {
-                fixturesContainer.innerHTML = `<div class="text-center py-16"><div class="text-6xl mb-4 animate-spin">⏳</div><h3 class="text-2xl font-semibold text-stone-300">Caricamento giornata...</h3></div>`;
-                try {
-                    const response = await fetch(`/api/getCalendario?round=${encodeURIComponent(round)}`);
-                    const data = await response.json();
-
-                    if (data.error) throw new Error(data.error);
-                    if (!data.fixtures || data.fixtures.length === 0) {
-                        fixturesContainer.innerHTML = `<div class="text-center py-16 bg-gray-800/50 rounded-lg"><h3 class="text-2xl font-semibold text-amber-400">Dati non disponibili</h3><p class="text-stone-400 mt-2">Nessuna partita trovata per questa giornata.</p></div>`;
-                        return;
-                    }
-
-                    let fixturesHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
-                    data.fixtures.forEach(fixture => {
-                        const date = new Date(fixture.fixture.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
-                        fixturesHTML += `
-                            <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700 flex flex-col items-center">
-                                <span class="text-xs text-stone-400 mb-2">${date}</span>
-                                <div class="w-full flex items-center justify-between">
-                                    <div class="flex items-center gap-2 w-2/5 justify-end">
-                                        <span class="font-semibold text-right">${fixture.teams.home.name}</span>
-                                        <img src="${fixture.teams.home.logo}" class="w-6 h-6">
-                                    </div>
-                                    <div class="font-bold text-xl px-2 bg-gray-900 rounded">${fixture.goals.home ?? '-'} - ${fixture.goals.away ?? '-'}</div>
-                                    <div class="flex items-center gap-2 w-2/5">
-                                        <img src="${fixture.teams.away.logo}" class="w-6 h-6">
-                                        <span class="font-semibold">${fixture.teams.away.name}</span>
-                                    </div>
-                                </div>
-                                <button class="details-btn mt-4 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded-full" data-fixture-id="${fixture.fixture.id}" data-home-name="${fixture.teams.home.name}" data-away-name="${fixture.teams.away.name}" data-home-logo="${fixture.teams.home.logo}" data-away-logo="${fixture.teams.away.logo}" data-score="${fixture.goals.home ?? '-'} - ${fixture.goals.away ?? '-'}" data-venue="${fixture.fixture.venue.name || 'N/D'}, ${fixture.fixture.venue.city || 'N/D'}">Dettagli Partita</button>
-                            </div>
-                        `;
-                    });
-                    fixturesHTML += '</div>';
-                    fixturesContainer.innerHTML = fixturesHTML;
-                    
-                    document.querySelectorAll('.details-btn').forEach(btn => {
-                        btn.addEventListener('click', () => openMatchModal(btn.dataset));
-                    });
-
-                } catch (error) {
-                    console.error('Errore caricamento partite:', error);
-                    fixturesContainer.innerHTML = `<div class="text-center py-16 bg-red-900/50 rounded-lg"><h3 class="text-2xl font-semibold text-red-300">Oops!</h3><p class="text-stone-400 mt-2">Impossibile caricare i dati della giornata.</p><p class="text-xs text-stone-500 mt-2">${error.message}</p></div>`;
-                }
-            }
-
-            async function openMatchModal(fixtureDetails) {
-                modal.classList.remove('hidden');
-                modalBody.innerHTML = `<div class="text-center py-16"><div class="text-6xl mb-4 animate-spin">⏳</div><h3 class="text-2xl font-semibold text-stone-300">Caricamento dettagli...</h3></div>`;
-                
-                try {
-                    const response = await fetch(`/api/getPartita?id=${fixtureDetails.fixtureId}`);
-                    const data = await response.json();
-
-                    if (data.error) throw new Error(data.error);
-                    
-                    const events = data.events;
-                    
-                    let modalHTML = `
-                        <div class="text-center mb-4">
-                            <div class="flex items-center justify-center gap-4">
-                                <div class="flex flex-col items-center w-1/3">
-                                    <img src="${fixtureDetails.homeLogo}" class="w-16 h-16 mb-2">
-                                    <span class="font-bold text-lg">${fixtureDetails.homeName}</span>
-                                </div>
-                                <div class="font-bold text-4xl">${fixtureDetails.score}</div>
-                                <div class="flex flex-col items-center w-1/3">
-                                    <img src="${fixtureDetails.awayLogo}" class="w-16 h-16 mb-2">
-                                    <span class="font-bold text-lg">${fixtureDetails.awayName}</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-stone-400 mt-2">${fixtureDetails.venue}</p>
-                        </div>
-                        <div class="border-t border-gray-700 pt-4 mt-4">
-                            <h4 class="font-bold text-center text-indigo-400 mb-4">EVENTI PRINCIPALI</h4>
-                            <div class="space-y-3">
-                    `;
-
-                    if (events && events.length > 0) {
-                        events.forEach(event => {
-                            let icon = '';
-                            if (event.type === 'Goal') icon = '⚽';
-                            if (event.type === 'Card' && event.detail === 'Yellow Card') icon = '🟨';
-                            if (event.type === 'Card' && event.detail === 'Red Card') icon = '🟥';
-                            if (event.type === 'subst') icon = '🔄';
-
-                            if (icon) {
-                                modalHTML += `
-                                    <div class="flex items-center text-sm">
-                                        <div class="w-12 text-center font-bold">${event.time.elapsed}'</div>
-                                        <div class="w-8 text-center">${icon}</div>
-                                        <div class="flex-1">
-                                            <span class="font-semibold">${event.player.name}</span>
-                                            <span class="text-stone-400 text-xs">(${event.team.name})</span>
-                                            ${event.assist.name ? `<br><span class="text-xs text-green-400">+ Assist: ${event.assist.name}</span>` : ''}
-                                        </div>
-                                    </div>
-                                `;
-                            }
-                        });
-                    } else {
-                        modalHTML += `<p class="text-center text-stone-400">Nessun evento di rilievo registrato.</p>`;
-                    }
-
-                    modalHTML += `</div></div>`;
-                    modalBody.innerHTML = modalHTML;
-
-                } catch (error) {
-                    console.error('Errore caricamento dettagli partita:', error);
-                    modalBody.innerHTML = `<div class="text-center py-16"><h3 class="text-2xl font-semibold text-red-300">Oops!</h3><p class="text-stone-400 mt-2">Impossibile caricare i dettagli della partita.</p></div>`;
-                }
-            }
-
-            // NUOVA LOGICA: Carica le giornate e imposta l'ultima giocata
-            async function initializeCalendar() {
-                try {
-                    const response = await fetch('/api/getCurrentRound');
-                    const data = await response.json();
-                    if(data.error) throw new Error(data.error);
-
-                    const lastPlayedRound = data.currentRound;
-
-                    roundSelector.innerHTML = ''; // Pulisci le opzioni di caricamento
-                    for (let i = 1; i <= 38; i++) {
-                        const option = document.createElement('option');
-                        const roundValue = `Regular Season - ${i}`;
-                        option.value = roundValue;
-                        option.textContent = `Giornata ${i}`;
-                        roundSelector.appendChild(option);
-                    }
-                    
-                    roundSelector.value = lastPlayedRound;
-                    roundSelector.disabled = false;
-                    
-                    fetchFixtures(lastPlayedRound);
-
-                } catch(error) {
-                    console.error("Errore nel caricare la giornata corrente:", error);
-                    fixturesContainer.innerHTML = `<div class="text-center py-16 bg-red-900/50 rounded-lg"><h3 class="text-2xl font-semibold text-red-300">Errore Iniziale</h3><p class="text-stone-400 mt-2">Impossibile determinare la giornata corrente.</p></div>`;
-                    roundSelector.disabled = true;
-                    roundSelector.innerHTML = '<option>Errore nel caricamento</option>';
-                }
-            }
-
-
-            roundSelector.addEventListener('change', () => {
-                fetchFixtures(roundSelector.value);
-            });
-
-            initializeCalendar();
-
-            closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
         });
     </script>
 </body>
