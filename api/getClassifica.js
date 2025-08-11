@@ -1,16 +1,12 @@
 // File: /api/getClassifica.js
 
 export default async function handler(request, response) {
-  // Prende la chiave API segreta dalle Environment Variables di Vercel
   const apiKey = process.env.API_FOOTBALL_KEY;
 
   if (!apiKey) {
     return response.status(500).json({ error: 'API Key non configurata sul server.' });
   }
 
-  // ID Lega Serie A = 135
-  // MODIFICA: Usiamo la stagione 2023 per avere dati completi a scopo di test.
-  // Una volta che la stagione 24/25 sarà iniziata e presente sull'API, rimetteremo 2024.
   const leagueId = 135;
   const season = 2023; 
 
@@ -25,13 +21,21 @@ export default async function handler(request, response) {
       },
     });
 
+    // NUOVO CONTROLLO DI DEBUG:
+    // Prima di provare a leggere i dati come JSON, controlliamo se la chiamata è andata a buon fine.
+    if (!apiResponse.ok) {
+      // Se la risposta non è OK (es. errore 401, 403, 500), leggiamo l'errore come testo...
+      const errorText = await apiResponse.text();
+      // ...e lo lanciamo come un errore, così lo vedremo sulla pagina.
+      throw new Error(`API-Football ha risposto con un errore: ${apiResponse.status} - ${errorText}`);
+    }
+
     const data = await apiResponse.json();
 
     if (data.errors && Object.keys(data.errors).length > 0) {
       throw new Error(JSON.stringify(data.errors));
     }
 
-    // Imposta una cache di 1 ora per non sprecare chiamate API
     response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
     
     return response.status(200).json({
@@ -39,11 +43,6 @@ export default async function handler(request, response) {
     });
 
   } catch (error) {
-    console.error("Errore nella funzione serverless:", error);
-    return response.status(500).json({ error: `Errore nel contattare l'API di Football: ${error.message}` });
-  }
-}
-
     console.error("Errore nella funzione serverless:", error);
     return response.status(500).json({ error: `Errore nel contattare l'API di Football: ${error.message}` });
   }
