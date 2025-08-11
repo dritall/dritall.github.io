@@ -71,16 +71,15 @@
         </div>
 
         <div class="mb-8 max-w-sm mx-auto">
-            <select id="round-selector" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <!-- Opzioni generate da JS -->
+            <select id="round-selector" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" disabled>
+                <option>Caricamento giornate...</option>
             </select>
         </div>
 
         <div id="fixtures-container">
-            <!-- Contenuto iniziale, verrà sostituito dal caricamento -->
             <div class="text-center py-16">
-                <div class="text-6xl mb-4">👇</div>
-                <h3 class="text-2xl font-semibold text-stone-300">Seleziona una giornata per iniziare...</h3>
+                <div class="text-6xl mb-4 animate-spin">⏳</div>
+                <h3 class="text-2xl font-semibold text-stone-300">Caricamento in corso...</h3>
             </div>
         </div>
 
@@ -90,9 +89,7 @@
 <!-- Modale per i dettagli della partita (inizialmente nascosto) -->
 <div id="match-modal" class="fixed inset-0 w-full h-full flex items-center justify-center p-4 z-50 hidden">
     <div class="modal-content w-full max-w-2xl rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
-        <div id="modal-body" class="p-6">
-            <!-- Contenuto del modale generato da JS -->
-        </div>
+        <div id="modal-body" class="p-6"></div>
         <div class="p-4 bg-gray-900/50 border-t border-gray-700 text-right">
             <button id="close-modal-btn" class="nav-button active px-4 py-2 rounded-md">Chiudi</button>
         </div>
@@ -115,13 +112,6 @@
             const modal = document.getElementById('match-modal');
             const modalBody = document.getElementById('modal-body');
             const closeModalBtn = document.getElementById('close-modal-btn');
-
-            for (let i = 1; i <= 38; i++) {
-                const option = document.createElement('option');
-                option.value = `Regular Season - ${i}`;
-                option.textContent = `Giornata ${i}`;
-                roundSelector.appendChild(option);
-            }
 
             async function fetchFixtures(round) {
                 fixturesContainer.innerHTML = `<div class="text-center py-16"><div class="text-6xl mb-4 animate-spin">⏳</div><h3 class="text-2xl font-semibold text-stone-300">Caricamento giornata...</h3></div>`;
@@ -236,12 +226,43 @@
                 }
             }
 
+            // NUOVA LOGICA: Carica le giornate e imposta l'ultima giocata
+            async function initializeCalendar() {
+                try {
+                    const response = await fetch('/api/getCurrentRound');
+                    const data = await response.json();
+                    if(data.error) throw new Error(data.error);
+
+                    const lastPlayedRound = data.currentRound;
+
+                    roundSelector.innerHTML = ''; // Pulisci le opzioni di caricamento
+                    for (let i = 1; i <= 38; i++) {
+                        const option = document.createElement('option');
+                        const roundValue = `Regular Season - ${i}`;
+                        option.value = roundValue;
+                        option.textContent = `Giornata ${i}`;
+                        roundSelector.appendChild(option);
+                    }
+                    
+                    roundSelector.value = lastPlayedRound;
+                    roundSelector.disabled = false;
+                    
+                    fetchFixtures(lastPlayedRound);
+
+                } catch(error) {
+                    console.error("Errore nel caricare la giornata corrente:", error);
+                    fixturesContainer.innerHTML = `<div class="text-center py-16 bg-red-900/50 rounded-lg"><h3 class="text-2xl font-semibold text-red-300">Errore Iniziale</h3><p class="text-stone-400 mt-2">Impossibile determinare la giornata corrente.</p></div>`;
+                    roundSelector.disabled = true;
+                    roundSelector.innerHTML = '<option>Errore nel caricamento</option>';
+                }
+            }
+
+
             roundSelector.addEventListener('change', () => {
                 fetchFixtures(roundSelector.value);
             });
 
-            // MODIFICA: Carica la prima giornata all'avvio della pagina
-            fetchFixtures(roundSelector.value);
+            initializeCalendar();
 
             closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
             modal.addEventListener('click', (e) => {
@@ -249,11 +270,6 @@
                     modal.classList.add('hidden');
                 }
             });
-        });
-    </script>
-</body>
-</html>
-
         });
     </script>
 </body>
