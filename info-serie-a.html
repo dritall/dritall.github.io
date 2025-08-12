@@ -41,25 +41,9 @@
             z-index: -1;
             background-color: rgba(1, 4, 9, 0.75);
         }
-        #secondary-header {
-            background-color: rgba(1, 4, 9, 0.8);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-        #secondary-logo {
-            height: 40px;
-            width: auto;
-        }
         #main-nav {
             position: sticky;
-            top: 0;
+            top: 56px; /* Altezza header */
             z-index: 40;
             background-color: rgba(1, 4, 9, 0.5);
             backdrop-filter: blur(8px);
@@ -136,31 +120,34 @@
 
 <div class="w-full">
     
-    <header id="secondary-header">
-        <a href="index.html"><img id="secondary-logo" src="image/logo-compact.png" alt="Fanta Laghèe Logo"></a>
-        <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti px-4 py-2 rounded-full text-xs md:text-sm uppercase">Iscriviti</a>
+    <header id="main-header" class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700 py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html">
+                <img src="image/logo-compact.png" alt="Fanta Laghèe Logo" class="h-10">
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti px-4 py-2 rounded-full text-xs md:text-sm uppercase hidden sm:block">Iscriviti</a>
+                 <a href="https://drive.google.com/file/d/17821ovoRg0-fae8D-QeVpOAJGHfoWyyg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="external-link-button p-2 rounded-full text-xs md:text-sm flex items-center" title="Scarica Regolamento PDF">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                </a>
+            </div>
+        </div>
     </header>
 
-    <<nav id="main-nav">
+  <nav id="main-nav">
     <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-2 md:gap-3 py-3">
-        <!-- Pulsanti per le sezioni interne (funzionano solo su index.html) -->
-        <a href="index.html#panoramica" data-target="panoramica" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Panoramica</a>
-        <a href="index.html#novita" data-target="novita" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Novità</a>
-        <a href="index.html#regole" data-target="regole" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Regolamento</a>
-        <a href="index.html#mercato" data-target="mercato" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Mercato</a>
-        <a href="index.html#bonus-malus" data-target="bonus-malus" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Bonus/Malus</a>
-        <a href="index.html#partecipanti" data-target="partecipanti" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">I Protagonisti</a>
-        <a href="index.html#verdetto" data-target="verdetto" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Il Verdetto</a>
+        <!-- I link puntano alle sezioni di index.html -->
+        <a href="index.html#panoramica" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Panoramica</a>
+        <a href="index.html#novita" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Novità</a>
+        <a href="index.html#regole" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Regolamento</a>
+        <a href="index.html#mercato" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Mercato</a>
+        <a href="index.html#bonus-malus" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Bonus/Malus</a>
+        <a href="index.html#partecipanti" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">I Protagonisti</a>
+        <a href="index.html#verdetto" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Il Verdetto</a>
         
         <!-- Link alle pagine separate -->
-        <a href="info-serie-a.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Info Serie A</a>
+        <a href="info-serie-a.html" class="nav-button nav-link active px-3 py-2 rounded-full text-xs md:text-sm">Info Serie A</a>
         <a href="calendario.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Calendario</a>
-        
-        <!-- Link Esterno -->
-        <a href="https://drive.google.com/file/d/17821ovoRg0-fae8D-QeVpOAJGHfoWyyg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="external-link-button px-3 py-2 rounded-full text-xs md:text-sm flex items-center gap-1" title="Scarica Regolamento PDF">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-            PDF
-        </a>
     </div>
 </nav>
 
@@ -183,14 +170,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const currentPage = 'classifica.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const linkPage = link.getAttribute('href');
-                if (linkPage === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-
             async function fetchStandings() {
                 const container = document.getElementById('standings-container');
                 try {
