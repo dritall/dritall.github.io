@@ -18,8 +18,8 @@ export default async function handler(request, response) {
   try {
     // Eseguiamo le chiamate in parallelo per essere più veloci
     const [fixtureRes, eventsRes] = await Promise.all([
-      fetch(fixtureUrl, { headers: { 'x-rapidapi-key': apiKey } }),
-      fetch(eventsUrl, { headers: { 'x-rapidapi-key': apiKey } })
+      fetch(fixtureUrl, { headers: { 'x-rapidapi-key': apiKey, 'x-rapidapi-host': 'v3.football.api-sports.io' } }),
+      fetch(eventsUrl, { headers: { 'x-rapidapi-key': apiKey, 'x-rapidapi-host': 'v3.football.api-sports.io' } })
     ]);
 
     if (!fixtureRes.ok || !eventsRes.ok) {
