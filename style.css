@@ -195,3 +195,58 @@ body {
 .tab-content.active {
     display: block;
 }
+.round-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+.match-row-link {
+    display: block;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #1c232f;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    color: var(--primary-text);
+}
+.match-row-link:hover {
+    background-color: #2a3447;
+    transform: scale(1.02);
+}
+.match-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.125rem;
+}
+.team {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 40%;
+}
+.team.away {
+    justify-content: flex-end;
+}
+.team-name {
+    font-weight: 600;
+}
+.score {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--accent-orange);
+    width: 20%;
+    text-align: center;
+}
+.match-date {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+    margin-top: 0.25rem;
+}
+.team-logo-small {
+    width: 28px;
+    height: 28px;
+}
