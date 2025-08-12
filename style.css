@@ -174,3 +174,24 @@ body {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
 }
+.tab-button {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--primary-text);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.tab-button.active {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+    font-weight: 600;
+}
+.tab-content {
+    display: none;
+    padding: 1.5rem 0;
+}
+.tab-content.active {
+    display: block;
+}
