@@ -12,156 +12,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --background-color: #010409;
-            --primary-text: #c9d1d9;
-            --card-bg: #161B22;
-            --border-color: #30363d;
-            --accent-blue: #4f46e5;
-            --accent-orange: #f59e0b;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--primary-text);
-        }
-        .background-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background-image: url('image/stadium-bg.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .background-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background-color: rgba(1, 4, 9, 0.75);
-        }
-        #main-nav {
-            position: sticky;
-            top: 56px; /* Altezza header */
-            z-index: 40;
-            background-color: rgba(1, 4, 9, 0.5);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .nav-button {
-            transition: all 0.3s ease;
-            color: #9ca3af;
-            background-color: rgba(31, 41, 59, 0.5);
-            border: 1px solid #374151;
-        }
-        .nav-button.active {
-            background-color: var(--accent-blue);
-            color: #ffffff;
-            font-weight: 600;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
-        }
-        .nav-button:not(.active):hover {
-            background-color: #374151;
-            color: #f9fafb;
-        }
-        .external-link-button {
-            transition: all 0.3s ease;
-            color: var(--accent-orange);
-            background-color: rgba(245, 158, 11, 0.1);
-            border: 1px solid var(--accent-orange);
-        }
-        .external-link-button:hover {
-            background-color: rgba(245, 158, 11, 0.2);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-        }
-        .standings-table {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-        .standings-table th {
-            background-color: rgba(31, 41, 59, 0.5);
-            color: var(--primary-text);
-        }
-        .standings-table td, .standings-table th {
-            padding: 0.75rem 1rem;
-            text-align: left;
-        }
-        .standings-table tbody tr:nth-child(even) {
-            background-color: rgba(1, 4, 9, 0.2);
-        }
-         .standings-table tbody tr:hover {
-            background-color: #374151;
-        }
-        .team-logo {
-            width: 24px;
-            height: 24px;
-            margin-right: 0.75rem;
-        }
-        .btn-iscriviti {
-            background-color: var(--accent-orange);
-            color: #111827;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-        }
-        .btn-iscriviti:hover {
-            background-color: #fbbf24;
-            transform: scale(1.05);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased">
-<div class="background-container"></div>
-<div class="background-overlay"></div>
 
 <div class="w-full">
     
-    <header id="main-header" class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700 py-2">
-        <div class="container mx-auto px-4 flex justify-between items-center">
+    <header id="main-header" class="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-lg border-b border-gray-700">
+        <div class="container mx-auto px-4 flex justify-between items-center h-16">
             <a href="index.html">
-                <img src="image/logo-compact.png" alt="Fanta Laghèe Logo" class="h-10">
+                <img src="image/logo-compact.png" alt="Fanta Laghèe Logo" class="h-12">
             </a>
-            <div class="flex items-center gap-3">
-                <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti px-4 py-2 rounded-full text-xs md:text-sm uppercase hidden sm:block">Iscriviti</a>
-                 <a href="https://drive.google.com/file/d/17821ovoRg0-fae8D-QeVpOAJGHfoWyyg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="external-link-button p-2 rounded-full text-xs md:text-sm flex items-center" title="Scarica Regolamento PDF">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                </a>
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="index.html" class="nav-button px-4 py-2 rounded-full text-sm">Panoramica</a>
+                <a href="index.html#novita" class="nav-button px-4 py-2 rounded-full text-sm">Novità</a>
+                <a href="index.html#regole" class="nav-button px-4 py-2 rounded-full text-sm">Regolamento</a>
+                <div class="relative dropdown">
+                    <button class="nav-button active px-4 py-2 rounded-full text-sm flex items-center gap-1">
+                        Info Serie A <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown-menu absolute top-full mt-2 w-48 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 hidden">
+                        <a href="info-serie-a.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Classifica</a>
+                        <a href="calendario.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Calendario</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="flex items-center gap-2">
+                <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti px-4 py-2 rounded-full text-sm uppercase hidden sm:block">Iscriviti</a>
+                <button id="hamburger-btn" class="md:hidden p-2 rounded-md text-gray-400 hover:bg-gray-700">
+                    <svg id="hamburger-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg id="hamburger-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
         </div>
     </header>
 
-  <nav id="main-nav">
-    <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-2 md:gap-3 py-3">
-        <!-- I link puntano alle sezioni di index.html -->
-        <a href="index.html#panoramica" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Panoramica</a>
-        <a href="index.html#novita" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Novità</a>
-        <a href="index.html#regole" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Regolamento</a>
-        <a href="index.html#mercato" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Mercato</a>
-        <a href="index.html#bonus-malus" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Bonus/Malus</a>
-        <a href="index.html#partecipanti" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">I Protagonisti</a>
-        <a href="index.html#verdetto" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Il Verdetto</a>
-        
-        <!-- Link alle pagine separate -->
-        <a href="info-serie-a.html" class="nav-button nav-link active px-3 py-2 rounded-full text-xs md:text-sm">Info Serie A</a>
-        <a href="calendario.html" class="nav-button nav-link px-3 py-2 rounded-full text-xs md:text-sm">Calendario</a>
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-lg fixed top-16 left-0 w-full h-[calc(100vh-4rem)] z-40">
+        <div class="container mx-auto p-4 flex flex-col gap-4">
+            <a href="index.html" class="nav-button text-center w-full py-3 rounded-full">Panoramica</a>
+            <a href="index.html#novita" class="nav-button text-center w-full py-3 rounded-full">Novità</a>
+            <a href="index.html#regole" class="nav-button text-center w-full py-3 rounded-full">Regolamento</a>
+            <div class="relative dropdown-mobile w-full">
+                <button class="nav-button active w-full py-3 rounded-full flex items-center justify-center gap-1">
+                    Info Serie A <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="dropdown-menu-mobile mt-2 w-full bg-gray-800 border border-gray-700 rounded-md shadow-lg hidden">
+                    <a href="info-serie-a.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Classifica</a>
+                    <a href="calendario.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Calendario</a>
+                </div>
+            </div>
+            <a href="https://forms.gle/HRBX3hvc351Y2Mai7" target="_blank" rel="noopener noreferrer" class="btn-iscriviti text-center w-full py-3 rounded-full uppercase sm:hidden">Iscriviti</a>
+        </div>
     </div>
-</nav>
 
     <main class="container mx-auto p-4 md:p-8 relative z-10">
         
-        <div class="text-center mb-12">
-            <h2 class="text-4xl lg:text-5xl font-bold text-indigo-400 mb-2" style="font-family: 'Oswald', sans-serif;">CLASSIFICA SERIE A</h2>
-            <p class="max-w-3xl mx-auto text-stone-400">La classifica aggiornata del campionato, direttamente da API-Football.</p>
+        <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-indigo-400 mb-2" style="font-family: 'Oswald', sans-serif;">CLASSIFICA SERIE A</h2>
+            <p class="max-w-3xl mx-auto text-stone-400 text-sm sm:text-base">La classifica aggiornata del campionato, direttamente da API-Football.</p>
         </div>
 
-        <div id="standings-container" class="overflow-x-auto">
+        <div id="standings-container" class="overflow-x-auto rounded-lg border border-gray-700">
             <div class="text-center py-16">
-                <div class="text-6xl mb-4 animate-spin">⏳</div>
-                <h3 class="text-2xl font-semibold text-stone-300">Caricamento dati in corso...</h3>
+                <div class="text-4xl sm:text-6xl mb-4 animate-spin">⏳</div>
+                <h3 class="text-xl sm:text-2xl font-semibold text-stone-300">Caricamento dati in corso...</h3>
             </div>
         </div>
 
@@ -244,6 +160,51 @@
             }
 
             fetchStandings();
+        });
+
+        // Mobile Menu & Dropdown Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger Menu
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerOpenIcon = document.getElementById('hamburger-open');
+            const hamburgerCloseIcon = document.getElementById('hamburger-close');
+
+            hamburgerBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                hamburgerOpenIcon.classList.toggle('hidden');
+                hamburgerCloseIcon.classList.toggle('hidden');
+            });
+
+            // Desktop Dropdown
+            const dropdown = document.querySelector('.dropdown');
+            if (dropdown) {
+                dropdown.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    menu.classList.toggle('hidden');
+                });
+            }
+
+            // Mobile Dropdown
+            const dropdownMobile = document.querySelector('.dropdown-mobile');
+            if (dropdownMobile) {
+                dropdownMobile.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const menu = dropdownMobile.querySelector('.dropdown-menu-mobile');
+                    menu.classList.toggle('hidden');
+                });
+            }
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.add('hidden'));
+                }
+                if (!e.target.closest('.dropdown-mobile')) {
+                    document.querySelectorAll('.dropdown-menu-mobile').forEach(menu => menu.classList.add('hidden'));
+                }
+            });
         });
     </script>
 </body>
