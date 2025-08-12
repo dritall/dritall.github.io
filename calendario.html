@@ -32,11 +32,20 @@
                 <a href="index.html#regole" class="nav-button px-4 py-2 rounded-full text-sm">Regolamento</a>
                 <div class="relative dropdown">
                     <button class="nav-button active px-4 py-2 rounded-full text-sm flex items-center gap-1">
-                        Info Serie A <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        Stagione 25/26 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="dropdown-menu absolute top-full mt-2 w-48 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 hidden">
-                        <a href="classifica.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Classifica</a>
-                        <a href="calendario.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Calendario</a>
+                        <a href="classifica.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Classifica 25/26</a>
+                        <a href="calendario.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Calendario 25/26</a>
+                    </div>
+                </div>
+                <div class="relative dropdown">
+                    <button class="nav-button px-4 py-2 rounded-full text-sm flex items-center gap-1">
+                        Archivio 24/25 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown-menu absolute top-full mt-2 w-48 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 hidden">
+                        <a href="classifica_2425.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Classifica 24/25</a>
+                        <a href="calendario_2425.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Calendario 24/25</a>
                     </div>
                 </div>
             </nav>
@@ -61,11 +70,20 @@
             <a href="index.html#regole" class="nav-button text-center w-full py-3 rounded-full">Regolamento</a>
             <div class="relative dropdown-mobile w-full">
                 <button class="nav-button active w-full py-3 rounded-full flex items-center justify-center gap-1">
-                    Info Serie A <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    Stagione 25/26 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="dropdown-menu-mobile mt-2 w-full bg-gray-800 border border-gray-700 rounded-md shadow-lg hidden">
-                    <a href="classifica.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Classifica</a>
-                    <a href="calendario.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Calendario</a>
+                    <a href="classifica.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Classifica 25/26</a>
+                    <a href="calendario.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Calendario 25/26</a>
+                </div>
+            </div>
+            <div class="relative dropdown-mobile w-full">
+                <button class="nav-button w-full py-3 rounded-full flex items-center justify-center gap-1">
+                    Archivio 24/25 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="dropdown-menu-mobile mt-2 w-full bg-gray-800 border border-gray-700 rounded-md shadow-lg hidden">
+                    <a href="classifica_2425.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Classifica 24/25</a>
+                    <a href="calendario_2425.html" class="block text-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700">Calendario 24/25</a>
                 </div>
             </div>
             <a href="https://drive.google.com/file/d/17821ovoRg0-fae8D-QeVpOAJGHfoWyyg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-button text-center w-full py-3 rounded-full flex items-center justify-center gap-2">
@@ -152,7 +170,7 @@
                             const localTime = new Date(`1970-01-01T${fixture.strTime}Z`).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
 
                             tableHTML += `
-                                <tr>
+                                <tr class="cursor-pointer hover:bg-gray-700" onclick="window.location.href='dettaglio_partita.html?id=${fixture.idEvent}'">
                                     <td class="hidden md:table-cell py-3">${localDate} - ${localTime}</td>
                                     <td>
                                         <div class="flex items-center gap-3">
