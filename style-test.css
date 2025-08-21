@@ -1,0 +1,108 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+#app {
+    padding: 1rem;
+}
+
+#matchday-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#matchday-nav button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#matchday-nav button:hover, #matchday-nav button.active {
+    background-color: #0056b3;
+}
+
+#matches-container {
+    display: grid;
+    gap: 1rem;
+}
+
+.match-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+}
+
+.match-details {
+    display: none;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.match-details.visible {
+    display: block;
+    max-height: 1000px; /* A large enough value to allow for content */
+    padding-top: 1rem;
+}
+
+.match-details h4, .match-details h5, .match-details h6 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.match-details ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.match-details li {
+    padding: 0.25rem 0;
+}
+
+@media (min-width: 768px) {
+    #matches-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    #matches-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

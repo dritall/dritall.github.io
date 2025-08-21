@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Serie A 2024/25 - Test</title>
+    <link rel="stylesheet" href="style-test.css">
+</head>
+<body>
+    <header>
+        <h1>Calendario Serie A 2024/25</h1>
+    </header>
+    <main id="app">
+        <nav id="matchday-nav"></nav>
+        <div id="matches-container"></div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const matchdayNav = document.getElementById('matchday-nav');
+            const matchesContainer = document.getElementById('matches-container');
+            let allMatches = [];
+            let currentMatchday = 1;
+
+            const fetchMatches = async () => {
+                try {
+                    const response = await fetch('/api/getCalendarioTest');
+                    if (!response.ok) throw new Error('Failed to fetch matches');
+                    const data = await response.json();
+                    allMatches = data.matches;
+                    render();
+                } catch (error) {
+                    console.error('Error fetching matches:', error);
+                    matchesContainer.innerHTML = '<p>Error loading match data.</p>';
+                }
+            };
+
+            const render = () => {
+                renderMatchdayNav();
+                renderMatchesForMatchday(currentMatchday);
+            };
+
+            const renderMatchdayNav = () => {
+                matchdayNav.innerHTML = '';
+                const matchdays = [...new Set(allMatches.map(match => match.matchday))].sort((a, b) => a - b);
+                matchdays.forEach(md => {
+                    const button = document.createElement('button');
+                    button.textContent = `Giornata ${md}`;
+                    button.dataset.matchday = md;
+                    if (md === currentMatchday) button.classList.add('active');
+                    button.addEventListener('click', () => {
+                        currentMatchday = md;
+                        renderMatchesForMatchday(md);
+                        document.querySelectorAll('#matchday-nav button').forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    });
+                    matchdayNav.appendChild(button);
+                });
+            };
+
+            const renderMatchesForMatchday = (matchday) => {
+                matchesContainer.innerHTML = '';
+                const matchesForDay = allMatches.filter(match => match.matchday === matchday);
+
+                if (matchesForDay.length === 0) {
+                    matchesContainer.innerHTML = '<p>No matches found for this matchday.</p>';
+                    return;
+                }
+
+                matchesForDay.forEach(match => {
+                    const card = document.createElement('div');
+                    card.className = 'match-card';
+                    card.dataset.matchId = match.id;
+
+                    const homeTeam = match.homeTeam.name;
+                    const awayTeam = match.awayTeam.name;
+                    const score = match.score.fullTime.home !== null ? `${match.score.fullTime.home} - ${match.score.fullTime.away}` : new Date(match.utcDate).toLocaleString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+                    card.innerHTML = `
+                        <div class="match-header">
+                            <span>${homeTeam} vs ${awayTeam}</span>
+                            <strong>${score}</strong>
+                        </div>
+                        <div class="match-details" style="display: none;"></div>
+                    `;
+                    card.addEventListener('click', () => toggleMatchDetails(card, match.id));
+                    matchesContainer.appendChild(card);
+                });
+            };
+
+            const toggleMatchDetails = async (card, matchId) => {
+                const detailsContainer = card.querySelector('.match-details');
+                const isVisible = detailsContainer.classList.contains('visible');
+
+                if (isVisible) {
+                    detailsContainer.classList.remove('visible');
+                    // Allow animation to finish before clearing content
+                    setTimeout(() => {
+                        detailsContainer.innerHTML = '';
+                        detailsContainer.style.display = 'none';
+                    }, 500);
+                } else {
+                    detailsContainer.style.display = 'block';
+                    detailsContainer.innerHTML = '<p>Loading details...</p>';
+                    try {
+                        const response = await fetch(`/api/getPartitaDetailTest?id=${matchId}`);
+                        if (!response.ok) throw new Error('Failed to fetch match details');
+                        const matchDetails = await response.json();
+                        renderMatchDetails(detailsContainer, matchDetails);
+                        // Use a short timeout to allow the element to be rendered before adding the class
+                        setTimeout(() => detailsContainer.classList.add('visible'), 10);
+                    } catch (error) {
+                        console.error('Error fetching match details:', error);
+                        detailsContainer.innerHTML = '<p>Could not load match details.</p>';
+                    }
+                }
+            };
+
+            const renderMatchDetails = (container, details) => {
+                const { score, goals, bookings, substitutions, homeTeam, awayTeam } = details;
+                let html = `<h4>Dettagli Partita</h4>`;
+
+                html += `<p><strong>Risultato Finale:</strong> ${score.fullTime.home} - ${score.fullTime.away}</p>`;
+                if(score.halfTime.home !== null) {
+                    html += `<p><strong>Primo Tempo:</strong> ${score.halfTime.home} - ${score.halfTime.away}</p>`;
+                }
+
+                html += '<h5>Goals</h5>';
+                if (goals.length > 0) {
+                    html += '<ul>';
+                    goals.forEach(g => {
+                        html += `<li>${g.minute}' ${g.scorer.name} (${g.team.name}) ${g.assist ? `(Assist: ${g.assist.name})` : ''}</li>`;
+                    });
+                    html += '</ul>';
+                } else {
+                    html += '<p>Nessun goal segnato.</p>';
+                }
+
+                html += '<h5>Cartellini</h5>';
+                if (bookings.length > 0) {
+                    html += '<ul>';
+                    bookings.forEach(b => {
+                        html += `<li>${b.minute}' ${b.player.name} (${b.card})</li>`;
+                    });
+                    html += '</ul>';
+                } else {
+                    html += '<p>Nessun cartellino.</p>';
+                }
+
+                html += '<h5>Sostituzioni</h5>';
+                if (substitutions.length > 0) {
+                    html += '<ul>';
+                    substitutions.forEach(s => {
+                        html += `<li>${s.minute}' ${s.playerOut.name} esce, ${s.playerIn.name} entra (${s.team.name})</li>`;
+                    });
+                    html += '</ul>';
+                } else {
+                    html += '<p>Nessuna sostituzione.</p>';
+                }
+
+                html += '<h5>Formazioni</h5>';
+                html += '<h6>Titolari</h6>';
+                html += `<p><strong>${homeTeam.name}:</strong> ${homeTeam.lineup.map(p => p.name).join(', ')}</p>`;
+                html += `<p><strong>${awayTeam.name}:</strong> ${awayTeam.lineup.map(p => p.name).join(', ')}</p>`;
+
+                html += '<h6>Panchina</h6>';
+                html += `<p><strong>${homeTeam.name}:</strong> ${homeTeam.bench.map(p => p.name).join(', ')}</p>`;
+                html += `<p><strong>${awayTeam.name}:</strong> ${awayTeam.bench.map(p => p.name).join(', ')}</p>`;
+
+                container.innerHTML = html;
+            };
+
+            fetchMatches();
+        });
+    </script>
+</body>
+</html>
